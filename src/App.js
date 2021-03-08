@@ -4,11 +4,14 @@ import Signup from "./components/Signup";
 import Signin from "./components/Signin";
 import UserProfile from "./components/UserProfile/UserProfile";
 import NavBar from "./components/NavBar";
+import FlightItems from "./components/FlightItems";
+import FlightList from "./components/FlightList";
 
 function App() {
   return (
     <div className="App">
       <NavBar />
+      <FlightList />
       <Switch>
         <Route path="/user">
           <UserProfile />
