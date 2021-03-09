@@ -12,6 +12,7 @@ import Deposits from "./Deposits";
 import Orders from "./Orders";
 import { Button, Input } from "@material-ui/core";
 import Signup from "../Signup";
+import Profile from "../Profile";
 import { signup } from "../../store/actions/authActions";
 
 function Copyright() {
@@ -125,7 +126,7 @@ export default function UserProfile() {
               <Paper className={fixedHeightPaper}>
                 {/* <Chart /> call the signup form here to edit uder data  */}
                 Edit User Data
-                <Signup />
+                <Profile />
               </Paper>
             </Grid>
             {/* Recent Deposits */}

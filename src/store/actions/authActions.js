@@ -63,12 +63,11 @@ export const logout = (user) => {
   };
 };
 
-export const userUpdate = (updatedUser, user) => async (dispatch) => {
+export const userUpdate = (updatedUser, history) => async (dispatch) => {
   console.log(updatedUser);
   try {
-    const formData = new FormData();
-    for (const key in updatedUser) formData.append(key, updatedUser[key]);
-    const res = await instance.put(`/user/${user.id}`, formData);
+    const res = await instance.put("/profile", updatedUser);
+    history.replace("/");
     dispatch({
       type: types.UPDATE_USER,
       payload: { updatedUser: res.data },

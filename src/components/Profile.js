@@ -1,21 +1,38 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { signup, userUpdate } from "../store/actions/authActions";
+import { userUpdate } from "../store/actions/authActions";
 
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-const Signup = () => {
+const Profile = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const user = useSelector((state) => state.authReducer.user);
 
-  const { handleSubmit, errors, register } = useForm();
+  let preloadedValues = {};
+  if (user) {
+    preloadedValues = {
+      username: user.username,
+      email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      phoneNumber: user.phoneNumber,
+    };
+  }
+  const { handleSubmit, errors, register } = useForm({
+    defaultValues: preloadedValues,
+  });
 
   const onSubmit = (data) => {
-    dispatch(signup(data, history));
+    data = { ...data, id: user.id };
+    dispatch(userUpdate(data, history));
   };
 
+  if (user === null) {
+    return <Redirect to="/" />;
+  }
   return (
     <form className="container" onSubmit={handleSubmit(onSubmit)}>
       {/* <h1>{foundProduct ? "Update" : "Create"} Product</h1> */}
@@ -28,24 +45,6 @@ const Signup = () => {
           ref={register({ required: true })}
         />
         {errors.username && <p>username is required</p>}
-      </div>
-      <div className="mb-3">
-        <label className="form-label">Password</label>
-        <input
-          type="password"
-          name="password"
-          className="form-control"
-          ref={register({ required: true, minLength: 6, maxLength: 12 })}
-        />
-        {errors.password && errors.password.type === "required" && (
-          <p>password is required</p>
-        )}
-        {errors.password && errors.password.type === "minLength" && (
-          <p>password has to be 6 characters</p>
-        )}
-        {errors.password && errors.password.type === "maxLength" && (
-          <p>password can't be longer than 12 characters</p>
-        )}
       </div>
       <div className="mb-3">
         <label className="form-label">Email</label>
@@ -98,4 +97,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Profile;
