@@ -95,21 +95,25 @@ export default function MenuAppBar() {
                 open={open}
                 onClose={handleClose}
               >
-                <Link to="/signup">
-                  {" "}
-                  <IconButton>SignUp</IconButton>
-                </Link>
-                <Link to="/signin">
-                  <IconButton>SignIn</IconButton>
-                </Link>
-                {user && (
-                  <Link to="/">
-                    <IconButton onClick={handleLogout}>Logout</IconButton>
-                  </Link>
+                {user ? (
+                  <div>
+                    <Link to="/">
+                      <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                    </Link>
+                    <Link to="/user">
+                      <MenuItem onClick={handleClose}>Profile</MenuItem>
+                    </Link>
+                  </div>
+                ) : (
+                  <div>
+                    <Link to="/signup">
+                      <MenuItem>SignUp</MenuItem>
+                    </Link>
+                    <Link to="/signin">
+                      <MenuItem>SignIn</MenuItem>
+                    </Link>
+                  </div>
                 )}
-                <Link to="/user">
-                  <MenuItem onClick={handleClose}>Profile</MenuItem>
-                </Link>
               </Menu>
             </div>
           )}

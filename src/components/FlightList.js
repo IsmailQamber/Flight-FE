@@ -11,12 +11,14 @@ import {
   TableHead,
   TableRow,
 } from "@material-ui/core";
-import { AirplanemodeActiveTwoTone, Book, Send } from "@material-ui/icons";
+import { Add, AirplanemodeActiveTwoTone, Book, Send } from "@material-ui/icons";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
+import { Link } from "react-router-dom";
 
 const FlightList = () => {
   const flights = useSelector((state) => state.flightReducer.flights);
+  const user = useSelector((state) => state.authReducer.user);
 
   return (
     <div>
@@ -82,6 +84,15 @@ const FlightList = () => {
           ))}
         </TableBody>
       </Table>
+      {user && user.isAirline === true ? (
+        <Link to="/flights/new">
+          <IconButton>
+            <Add />
+          </IconButton>
+        </Link>
+      ) : (
+        ""
+      )}
     </div>
   );
 };
