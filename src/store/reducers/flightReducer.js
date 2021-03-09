@@ -1,28 +1,16 @@
+import { FETCH_FLIGHT } from "../actions/types";
+
+// ACTION TYPES
+import * as types from "../actions/types";
+
 const initialState = {
-  flights: [
-    {
-      name: "AirLine",
-      date: "1/10/2010",
-      time: " AnyTime",
-      destination: "NoWhere",
-    },
-    {
-      name: "AirLine",
-      date: "2/10/2010",
-      time: " AnyTime",
-      destination: "NoWhere",
-    },
-    {
-      name: "AirLine",
-      date: "3/10/2010",
-      time: " AnyTime",
-      destination: "NoWhere",
-    },
-  ], //Flights Dummy Data,
+  flights: [], //Flights Data,
 };
 
 const flightReducer = (state = initialState, action) => {
   switch (action.type) {
+    case types.FETCH_FLIGHT:
+      return { ...state, flights: action.payload };
     default:
       return state;
   }
