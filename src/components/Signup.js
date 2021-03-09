@@ -1,91 +1,112 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { signup } from "../store/actions/authActions";
+import { useForm } from "react-hook-form";
+import { signup, userUpdate } from "../store/actions/authActions";
+
+const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 const Signup = () => {
+  const user = useSelector((state) => state.authReducer.user);
+  let preloadedValues = {};
+  if (user) {
+    preloadedValues = {
+      username: user.username,
+      password: user.password,
+      email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      phoneNumber: user.phoneNumber,
+    };
+  }
+  const { handleSubmit, errors, register } = useForm({
+    defaultValues: preloadedValues,
+  });
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [user, setUser] = useState({
-    username: "",
-    password: "",
-    email: "",
-    firstname: "",
-    lastname: "",
-    phonenumber: "",
-  });
-
-  const handleChange = (event) =>
-    setUser({ ...user, [event.target.name]: event.target.value });
-
-  const handleSubmit = (event) => {
+  const onSubmit = (data, event) => {
     event.preventDefault();
-    dispatch(signup(user, history));
+    if (user) {
+      dispatch(userUpdate(data, user));
+    } else {
+      dispatch(signup(data, history));
+    }
   };
 
   return (
-    <form className="container" onSubmit={handleSubmit}>
+    <form className="container" onSubmit={handleSubmit(onSubmit)}>
       {/* <h1>{foundProduct ? "Update" : "Create"} Product</h1> */}
       <div className="mb-3">
-        <label className="form-label">Name</label>
+        <label className="form-label">name</label>
         <input
           type="text"
-          value={user.name}
-          onChange={handleChange}
           name="username"
           className="form-control"
+          ref={register({ required: true })}
         />
+        {errors.username && <p>username is required</p>}
       </div>
       <div className="mb-3">
         <label className="form-label">Password</label>
         <input
           type="password"
-          value={user.password}
-          onChange={handleChange}
           name="password"
           className="form-control"
+          ref={register({ required: true, minLength: 6, maxLength: 12 })}
         />
+        {errors.password && errors.password.type === "required" && (
+          <p>password is required</p>
+        )}
+        {errors.password && errors.password.type === "minLength" && (
+          <p>password has to be 6 characters</p>
+        )}
+        {errors.password && errors.password.type === "maxLength" && (
+          <p>password can't be longer than 12 characters</p>
+        )}
       </div>
       <div className="mb-3">
         <label className="form-label">Email</label>
         <input
           type="text"
-          value={user.email}
-          onChange={handleChange}
           name="email"
           className="form-control"
+          ref={register({ required: true, pattern: EMAIL_REGEX })}
         />
+        {errors.email && errors.email.type === "required" && (
+          <p>email is required</p>
+        )}
+        {errors.email && errors.email.type === "pattern" && <p>Wrong email</p>}
       </div>
       <div className="mb-3">
         <label className="form-label">First name</label>
         <input
           type="text"
-          value={user.firstname}
-          onChange={handleChange}
-          name="firstname"
+          name="firstName"
           className="form-control"
+          ref={register({ required: true })}
         />
+        {errors.firstName && <p>first name is required</p>}
       </div>
       <div className="mb-3">
         <label className="form-label">Last name</label>
         <input
           type="text"
-          value={user.lastname}
-          onChange={handleChange}
-          name="lastname"
+          name="lastName"
           className="form-control"
+          ref={register({ required: true })}
         />
+        {errors.lastName && <p>last name is required</p>}
       </div>
       <div className="mb-3">
         <label className="form-label">Phone number</label>
         <input
           type="text"
-          value={user.phonenumber}
-          onChange={handleChange}
-          name="phonenumber"
+          name="phoneNumber"
           className="form-control"
+          ref={register({ required: true })}
         />
+        {errors.phoneNumber && <p>phone number is required</p>}
       </div>
       <button type="submit" className="btn btn-info float-right">
         {/* {foundProduct ? "Update" : "Create"} */}
