@@ -11,8 +11,10 @@ function App() {
   return (
     <div className="App">
       <NavBar />
-      <FlightList />
       <Switch>
+        <Route path="/flights">
+          <FlightList />
+        </Route>
         <Route path="/user">
           <UserProfile />
         </Route>
