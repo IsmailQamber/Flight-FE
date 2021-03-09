@@ -9,6 +9,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import { AirplanemodeActive, HomeOutlined } from "@material-ui/icons";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../store/actions/authActions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,9 +29,17 @@ export default function MenuAppBar() {
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.authReducer.user);
 
   const handleChange = (event) => {
     setAuth(event.target.checked);
+  };
+
+  const handleLogout = () => {
+    if (user) {
+      dispatch(logout());
+    }
   };
 
   const handleMenu = (event) => {
@@ -93,6 +103,11 @@ export default function MenuAppBar() {
                 <Link to="/signin">
                   <IconButton>SignIn</IconButton>
                 </Link>
+                {user && (
+                  <Link to="/">
+                    <IconButton onClick={handleLogout}>Logout</IconButton>
+                  </Link>
+                )}
                 <Link to="/user">
                   <MenuItem onClick={handleClose}>Profile</MenuItem>
                 </Link>

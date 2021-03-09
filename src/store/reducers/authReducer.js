@@ -16,6 +16,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         user: null,
       };
+    case types.UPDATE_USER:
+      return {
+        ...state,
+        user: [...state.user, action.payload.updatedUser],
+      };
     default:
       return state;
   }

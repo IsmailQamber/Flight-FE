@@ -1,26 +1,44 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { signup } from "../store/actions/authActions";
+import { signup, userUpdate } from "../store/actions/authActions";
 
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 const Signup = () => {
-  const { handleSubmit, errors, register } = useForm();
+  const user = useSelector((state) => state.authReducer.user);
+  let preloadedValues = {};
+  if (user) {
+    preloadedValues = {
+      username: user.username,
+      password: user.password,
+      email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      phoneNumber: user.phoneNumber,
+    };
+  }
+  const { handleSubmit, errors, register } = useForm({
+    defaultValues: preloadedValues,
+  });
   const dispatch = useDispatch();
   const history = useHistory();
 
   const onSubmit = (data, event) => {
     event.preventDefault();
-    dispatch(signup(data, history));
+    if (user) {
+      dispatch(userUpdate(data, user));
+    } else {
+      dispatch(signup(data, history));
+    }
   };
 
   return (
     <form className="container" onSubmit={handleSubmit(onSubmit)}>
       {/* <h1>{foundProduct ? "Update" : "Create"} Product</h1> */}
       <div className="mb-3">
-        <label className="form-label">Name</label>
+        <label className="form-label">name</label>
         <input
           type="text"
           name="username"
@@ -64,31 +82,31 @@ const Signup = () => {
         <label className="form-label">First name</label>
         <input
           type="text"
-          name="firstname"
+          name="firstName"
           className="form-control"
           ref={register({ required: true })}
         />
-        {errors.firstname && <p>first name is required</p>}
+        {errors.firstName && <p>first name is required</p>}
       </div>
       <div className="mb-3">
         <label className="form-label">Last name</label>
         <input
           type="text"
-          name="lastname"
+          name="lastName"
           className="form-control"
           ref={register({ required: true })}
         />
-        {errors.lastname && <p>last name is required</p>}
+        {errors.lastName && <p>last name is required</p>}
       </div>
       <div className="mb-3">
         <label className="form-label">Phone number</label>
         <input
           type="text"
-          name="phonenumber"
+          name="phoneNumber"
           className="form-control"
           ref={register({ required: true })}
         />
-        {errors.phonenumber && <p>phone number is required</p>}
+        {errors.phoneNumber && <p>phone number is required</p>}
       </div>
       <button type="submit" className="btn btn-info float-right">
         {/* {foundProduct ? "Update" : "Create"} */}

@@ -2,6 +2,7 @@ import instance from "./instance";
 import decode from "jwt-decode";
 import * as types from "../actions/types";
 import Cookies from "js-cookie";
+import { useRadioGroup } from "@material-ui/core";
 
 export const signup = (newUser, history) => async (dispatch) => {
   try {
@@ -60,4 +61,19 @@ export const logout = (user) => {
     type: types.LOGOUT,
     payload: { user },
   };
+};
+
+export const userUpdate = (updatedUser, user) => async (dispatch) => {
+  console.log(updatedUser);
+  try {
+    const formData = new FormData();
+    for (const key in updatedUser) formData.append(key, updatedUser[key]);
+    const res = await instance.put(`/user/${user.id}`, formData);
+    dispatch({
+      type: types.UPDATE_USER,
+      payload: { updatedUser: res.data },
+    });
+  } catch (error) {
+    console.log("ERROR: ", error);
+  }
 };
