@@ -60,8 +60,7 @@ export default function MenuAppBar() {
               <HomeOutlined />
             </IconButton>
           </Link>
-          <Link>
-            {" "}
+          <Link to="/flights">
             <IconButton>
               <AirplanemodeActive />
             </IconButton>
