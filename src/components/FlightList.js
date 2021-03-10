@@ -90,6 +90,8 @@ const FlightList = () => {
           ))} */}
         </TableBody>
       </Table>
+
+      {/* REVIEW: This condition should be for the whole component.... I think.... */}
       {user && user.isAirline === true ? (
         <Link to="/flights/new">
           <IconButton>

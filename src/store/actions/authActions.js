@@ -4,6 +4,8 @@ import * as types from "../actions/types";
 import Cookies from "js-cookie";
 import { useRadioGroup } from "@material-ui/core";
 
+// REVIEW: Add a `setUser` function to cleanup your code
+
 export const signup = (newUser, history) => async (dispatch) => {
   try {
     const res = await instance.post("/signup", newUser);
@@ -24,7 +26,8 @@ export const signin = (newData, history) => async (dispatch) => {
   try {
     const res = await instance.post("/signin", newData);
     const token = Cookies.set("myToken", res.data.token);
-    instance.defaults.headers.common.Authorization = `Bearer ${token}`; // sending the token to the instance, so this will send the token everytime we trigger or use an action.
+    instance.defaults.headers.common.Authorization = `Bearer ${token}`;
+    // sending the token to the instance, so this will send the token everytime we trigger or use an action.
     console.log(token);
     history.replace("/");
     dispatch({
@@ -43,7 +46,7 @@ export const checkToken = () => (dispatch) => {
     const currentTime = Date.now();
     if (currentTime < user.exp) {
       // checks if the token is expaired or not
-      Cookies.get("myToken");
+      Cookies.get("myToken"); //REVIEW: why?
       dispatch({
         type: types.SET_USER,
         payload: user,

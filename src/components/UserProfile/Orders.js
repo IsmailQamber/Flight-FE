@@ -54,6 +54,7 @@ export default function Orders() {
           </TableRow>
         </TableHead>
         <TableBody>
+          {/* REVIEW: Save this is in a variable and call it here */}
           {rows.map((row) => (
             <TableRow key={row.id}>
               <TableCell>{row.date}</TableCell>

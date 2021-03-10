@@ -15,6 +15,7 @@ const Routes = () => {
       <Route path="/user">
         <UserProfile />
       </Route>
+      {/* // REVIEW: Remove {} if only one path */}
       <Route path={"/signup"}>
         <Signup />
       </Route>

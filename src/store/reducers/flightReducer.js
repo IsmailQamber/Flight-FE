@@ -2,7 +2,8 @@
 import * as types from "../actions/types";
 
 const initialState = {
-  flights: [], //Flights Data,
+  flights: [], // Flights Data,
+  // add a loading
 };
 
 const flightReducer = (state = initialState, action) => {
