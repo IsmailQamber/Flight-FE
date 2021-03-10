@@ -2,8 +2,6 @@ import { useSelector } from "react-redux";
 import FlightItems from "./FlightItems";
 import {
   IconButton,
-  List,
-  ListItem,
   ListItemText,
   Table,
   TableBody,
@@ -11,15 +9,20 @@ import {
   TableHead,
   TableRow,
 } from "@material-ui/core";
-import { Add, AirplanemodeActiveTwoTone, Book, Send } from "@material-ui/icons";
+import { Add, AirplanemodeActiveTwoTone, Book } from "@material-ui/icons";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const FlightList = () => {
+  let [id, setId] = useState([]);
+  console.log(id);
   const flights = useSelector((state) => state.flightReducer.flights);
   const user = useSelector((state) => state.authReducer.user);
-
+  const flightList = flights.map((flight) => (
+    <FlightItems flight={flight} key={flight.id} setId={setId} />
+  ));
   return (
     <div>
       <Table size="small">
@@ -36,7 +39,8 @@ const FlightList = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {flights.map((flight) => (
+          {flightList}
+          {/* {flights.map((flight) => (
             <TableRow key={flight.id}>
               <TableCell>
                 <ListItemAvatar>
@@ -76,12 +80,14 @@ const FlightList = () => {
                 />
               </TableCell>
               <TableCell>
-                <IconButton>
+                <IconButton
+                  onClick={() => setId((array) => [...array, flight.id])}
+                >
                   <Book />
                 </IconButton>
               </TableCell>
-            </TableRow>
-          ))}
+            // </TableRow>
+          ))} */}
         </TableBody>
       </Table>
 
