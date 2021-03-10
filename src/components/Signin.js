@@ -22,7 +22,7 @@ const Signin = () => {
   return (
     <form className="container" onSubmit={handleSubmit(onSubmit)}>
       {/* <h1>{foundProduct ? "Update" : "Create"} Product</h1> */}
-      <div className="mb-3">
+      <div className="form-group">
         <label className="form-label">Name</label>
         <input
           type="text"
@@ -32,7 +32,7 @@ const Signin = () => {
         />
         {errors.username && <p>username is required</p>}
       </div>
-      <div className="mb-3">
+      <div className="form-group">
         <label className="form-label">Password</label>
         <input
           type="password"
@@ -50,7 +50,7 @@ const Signin = () => {
           <p>password can't be longer than 12 characters</p>
         )}
       </div>
-      <button type="submit" className="btn btn-info float-right">
+      <button type="submit" className="btn btn-primary">
         {/* {foundProduct ? "Update" : "Create"} */}
         Sign In
       </button>

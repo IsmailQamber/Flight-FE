@@ -36,7 +36,7 @@ const Profile = () => {
   return (
     <form className="container" onSubmit={handleSubmit(onSubmit)}>
       {/* <h1>{foundProduct ? "Update" : "Create"} Product</h1> */}
-      <div className="mb-3">
+      <div className="form-group">
         <label className="form-label">name</label>
         <input
           type="text"
@@ -46,7 +46,7 @@ const Profile = () => {
         />
         {errors.username && <p>username is required</p>}
       </div>
-      <div className="mb-3">
+      <div className="form-group">
         <label className="form-label">Email</label>
         <input
           type="text"
@@ -59,7 +59,7 @@ const Profile = () => {
         )}
         {errors.email && errors.email.type === "pattern" && <p>Wrong email</p>}
       </div>
-      <div className="mb-3">
+      <div className="form-group">
         <label className="form-label">First name</label>
         <input
           type="text"
@@ -69,7 +69,7 @@ const Profile = () => {
         />
         {errors.firstName && <p>first name is required</p>}
       </div>
-      <div className="mb-3">
+      <div className="form-group">
         <label className="form-label">Last name</label>
         <input
           type="text"
@@ -79,7 +79,7 @@ const Profile = () => {
         />
         {errors.lastName && <p>last name is required</p>}
       </div>
-      <div className="mb-3">
+      <div className="form-group">
         <label className="form-label">Phone number</label>
         <input
           type="text"
@@ -89,7 +89,7 @@ const Profile = () => {
         />
         {errors.phoneNumber && <p>phone number is required</p>}
       </div>
-      <button type="submit" className="btn btn-info float-right">
+      <button type="submit" className="btn btn-primary">
         {/* {foundProduct ? "Update" : "Create"} */}
         Save Changes
       </button>

@@ -1,8 +1,8 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { signup, userUpdate } from "../store/actions/authActions";
+import { signup } from "../store/actions/authActions";
 
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -19,7 +19,7 @@ const Signup = () => {
   return (
     <form className="container" onSubmit={handleSubmit(onSubmit)}>
       {/* <h1>{foundProduct ? "Update" : "Create"} Product</h1> */}
-      <div className="mb-3">
+      <div className="form-group">
         <label className="form-label">name</label>
         <input
           type="text"
@@ -29,7 +29,7 @@ const Signup = () => {
         />
         {errors.username && <p>username is required</p>}
       </div>
-      <div className="mb-3">
+      <div className="form-group">
         <label className="form-label">Password</label>
         <input
           type="password"
@@ -47,7 +47,7 @@ const Signup = () => {
           <p>password can't be longer than 12 characters</p>
         )}
       </div>
-      <div className="mb-3">
+      <div className="form-group">
         <label className="form-label">Email</label>
         <input
           type="text"
@@ -60,7 +60,7 @@ const Signup = () => {
         )}
         {errors.email && errors.email.type === "pattern" && <p>Wrong email</p>}
       </div>
-      <div className="mb-3">
+      <div className="form-group">
         <label className="form-label">First name</label>
         <input
           type="text"
@@ -70,7 +70,7 @@ const Signup = () => {
         />
         {errors.firstName && <p>first name is required</p>}
       </div>
-      <div className="mb-3">
+      <div className="form-group">
         <label className="form-label">Last name</label>
         <input
           type="text"
@@ -80,7 +80,7 @@ const Signup = () => {
         />
         {errors.lastName && <p>last name is required</p>}
       </div>
-      <div className="mb-3">
+      <div className="form-group">
         <label className="form-label">Phone number</label>
         <input
           type="text"
@@ -90,7 +90,7 @@ const Signup = () => {
         />
         {errors.phoneNumber && <p>phone number is required</p>}
       </div>
-      <button type="submit" className="btn btn-info float-right">
+      <button type="submit" className="btn btn-primary">
         {/* {foundProduct ? "Update" : "Create"} */}
         Sign Up
       </button>
