@@ -5,6 +5,7 @@ const initialState = {
   user: null,
 };
 
+// REVIEW: There should be a consistency between the app and web actions and reducers
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case types.SET_USER:

@@ -15,6 +15,8 @@ import Signup from "../Signup";
 import Profile from "../Profile";
 import { signup } from "../../store/actions/authActions";
 
+// REVIEW: Rename file to `index.js`
+// REVIEW: move into its component file
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -30,6 +32,7 @@ function Copyright() {
 
 const drawerWidth = 240;
 
+// REVIEW:  move styling to its own file!!!
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",

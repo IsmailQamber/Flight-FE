@@ -9,6 +9,8 @@ const Signin = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
+  // Remove commented out code
+
   // const [user, setUser] = useState({
   //   username: "",
   //   password: "",

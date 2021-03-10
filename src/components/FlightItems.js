@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// REVIEW: Shold be called FlightItem
 const FlightItems = ({ flight }) => {
   const classes = useStyles();
   return (
