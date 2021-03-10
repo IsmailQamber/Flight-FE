@@ -1,3 +1,4 @@
+import { SatelliteTwoTone } from "@material-ui/icons";
 import * as types from "../actions/types";
 
 const initialState = {
