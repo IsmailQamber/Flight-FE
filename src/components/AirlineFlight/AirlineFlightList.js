@@ -23,10 +23,10 @@ const AirlineFlightList = () => {
   const flights = useSelector((state) => state.flightReducer.flights);
   const user = useSelector((state) => state.authReducer.user);
   const flightList = flights
-    .find((_flight) => _flight.airlineId === user.id)
     .map((flight) => (
       <AirlineFlightItem flight={flight} key={flight.id} setId={setId} />
-    ));
+    ))
+    .find((_flight) => _flight.airlineId === user.id);
   console.log(flightList);
 
   if (loading) return <Loading />;
