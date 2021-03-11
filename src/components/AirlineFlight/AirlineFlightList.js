@@ -21,13 +21,16 @@ const AirlineFlightList = () => {
   let [id, setId] = useState([]);
   const loading = useSelector((state) => state.loading);
   const flights = useSelector((state) => state.flightReducer.flights);
+  const airlines = useSelector((state) => state.airlineReducer.airlines);
   const user = useSelector((state) => state.authReducer.user);
+  const airline = airlines.find((airline) => airline.userId === user.id);
+  const airlineId = airline.id;
+
   const flightList = flights
-    .find((_flight) => _flight.airlineId === user.id)
+    .filter((_flight) => _flight.airlineId === airlineId)
     .map((flight) => (
       <AirlineFlightItem flight={flight} key={flight.id} setId={setId} />
     ));
-  console.log(flightList);
 
   if (loading) return <Loading />;
 
