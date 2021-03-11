@@ -2,11 +2,12 @@ import { Route, Switch } from "react-router";
 
 //Routes
 import FlightList from "./Flight/FlightList";
-import FlightForm from "./Flight/FlightForm";
+
 import Signup from "./Authentication/Signup";
 import Signin from "./Authentication/Signin";
 import UserProfile from "./UserProfile";
 import AirlineFlightList from "./AirlineFlight/AirlineFlightList";
+import FlightForm from "./AirlineFlight/FlightForm";
 
 const Routes = () => {
   return (

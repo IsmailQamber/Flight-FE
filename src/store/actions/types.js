@@ -7,3 +7,7 @@ export const ADD_FLIGHT = "ADD_FLIGHT";
 export const REMOVE_FLIGHT = "REMOVE_FLIGHT";
 export const UPDATE_FLIGHT = "UPDATE_FLIGHT";
 export const FETCH_FLIGHT = "FETCH_FLIGHT";
+
+//AirLine Types
+export const FETCH_AIRLINE = "FETCH_AIRLINE";
+export const ADD_AIRLINE = "ADD_AIRLINE";

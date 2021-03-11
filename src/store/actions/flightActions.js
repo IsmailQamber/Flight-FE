@@ -14,7 +14,8 @@ export const fetchFlights = () => {
 
 export const addFlight = (newFlight) => async (dispatch) => {
   try {
-    const res = await instance.post("/flight", newFlight);
+    const res = await instance.post("/flights", newFlight);
+
     dispatch({
       type: types.ADD_FLIGHT,
       payload: { newFlight: res.data },
