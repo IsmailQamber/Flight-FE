@@ -6,12 +6,16 @@ import FlightForm from "./Flight/FlightForm";
 import Signup from "./Authentication/Signup";
 import Signin from "./Authentication/Signin";
 import UserProfile from "./UserProfile";
+import AirlineFlightList from "./AirlineFlight/AirlineFlightList";
 
 const Routes = () => {
   return (
     <Switch>
       <Route path="/flights/new">
         <FlightForm />
+      </Route>
+      <Route path="/airlineflights">
+        <AirlineFlightList />
       </Route>
       <Route path="/flights">
         <FlightList />
