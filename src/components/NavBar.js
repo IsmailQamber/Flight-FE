@@ -11,7 +11,12 @@ import IconButton from "@material-ui/core/IconButton";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
-import { AirplanemodeActive, HomeOutlined } from "@material-ui/icons";
+import {
+  AirplanemodeActive,
+  AirplanemodeActiveOutlined,
+  AirplanemodeActiveRounded,
+  HomeOutlined,
+} from "@material-ui/icons";
 
 // Actions
 import { logout } from "../store/actions/authActions";
@@ -64,63 +69,77 @@ export default function MenuAppBar() {
               <HomeOutlined />
             </IconButton>
           </Link>
-          <Link to="/flights">
-            <IconButton>
-              <AirplanemodeActive />
-            </IconButton>
-          </Link>
+
+          {user && !user.isAirline ? (
+            <Link to="/flights">
+              <IconButton>
+                <AirplanemodeActive />
+              </IconButton>
+            </Link>
+          ) : (
+            ""
+          )}
+
+          {user && user.isAirline ? (
+            <Link to="/airlineflights">
+              <IconButton>
+                <AirplanemodeActiveRounded />
+              </IconButton>
+            </Link>
+          ) : (
+            ""
+          )}
 
           <Typography variant="h6" className={classes.title}>
             Flights Website
           </Typography>
-          {auth && (
-            <div>
-              <IconButton
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={open}
-                onClose={handleClose}
-              >
-                {user ? (
-                  <div>
-                    <Link to="/">
-                      <MenuItem onClick={handleLogout}>Logout</MenuItem>
-                    </Link>
-                    <Link to="/user">
-                      <MenuItem onClick={handleClose}>Profile</MenuItem>
-                    </Link>
-                  </div>
-                ) : (
-                  <div>
-                    <Link to="/signup">
-                      <MenuItem>SignUp</MenuItem>
-                    </Link>
-                    <Link to="/signin">
-                      <MenuItem>SignIn</MenuItem>
-                    </Link>
-                  </div>
-                )}
-              </Menu>
-            </div>
-          )}
+
+          <div>
+            <IconButton
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleMenu}
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={open}
+              onClose={handleClose}
+            >
+              {user ? (
+                <div>
+                  <Link to="/">
+                    <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                  </Link>
+                  <Link to="/user">
+                    <MenuItem onClick={handleClose}>Profile</MenuItem>
+                  </Link>
+                </div>
+              ) : (
+                <div>
+                  <Link to="/signup">
+                    <MenuItem>SignUp</MenuItem>
+                  </Link>
+                  <Link to="/signin">
+                    <MenuItem>SignIn</MenuItem>
+                  </Link>
+                </div>
+              )}
+            </Menu>
+          </div>
         </Toolbar>
       </AppBar>
     </div>
