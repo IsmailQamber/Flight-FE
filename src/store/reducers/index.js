@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
 
+//Reducers
 import authReducer from "./authReducer";
 import flightReducer from "./flightReducer";
 

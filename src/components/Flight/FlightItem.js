@@ -1,29 +1,17 @@
+import React from "react";
+
+// Styles
 import {
   IconButton,
   ListItemText,
   TableCell,
   TableRow,
 } from "@material-ui/core";
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import { AirplanemodeActiveTwoTone, Book } from "@material-ui/icons";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: "100%",
-    maxWidth: 5000,
-    backgroundColor: theme.palette.background.paper,
-  },
-}));
-
-
-// REVIEW: Shold be called FlightItem 
-
-const FlightItems = ({ flight, setId }) => {
-
-  const classes = useStyles();
+const FlightItem = ({ flight, setId }) => {
   return (
     <TableRow>
       <TableCell>
@@ -78,4 +66,4 @@ const FlightItems = ({ flight, setId }) => {
     </TableRow>
   );
 };
-export default FlightItems;
+export default FlightItem;

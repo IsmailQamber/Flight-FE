@@ -1,15 +1,14 @@
-// ACTION TYPES
 import * as types from "../actions/types";
 
 const initialState = {
   flights: [], // Flights Data,
-  // add a loading
+  loading: true,
 };
 
 const flightReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.FETCH_FLIGHT:
-      return { ...state, flights: action.payload };
+      return { ...state, flights: action.payload, loading: false };
 
     case types.ADD_FLIGHT:
       const { newFlight } = action.payload;

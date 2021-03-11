@@ -1,5 +1,4 @@
 import instance from "./instance";
-// ACTION TYPES
 import * as types from "./types";
 
 export const fetchFlights = () => {
@@ -8,7 +7,7 @@ export const fetchFlights = () => {
       const res = await instance.get("/flights");
       dispatch({ type: types.FETCH_FLIGHT, payload: res.data });
     } catch (error) {
-      console.log(error);
+      console.log("fetchFlights flightActions Error:", error);
     }
   };
 };
@@ -21,7 +20,7 @@ export const addFlight = (newFlight) => async (dispatch) => {
       payload: { newFlight: res.data },
     });
   } catch (error) {
-    console.log(error);
+    console.log("addFlight flightActions Error:", error);
   }
 };
 
@@ -30,7 +29,7 @@ export const deleteFlight = (flightId) => async (dispatch) => {
     await instance.delete(`/flight/${flightId}`);
     dispatch({ type: types.REMOVE_FLIGHT, payload: { flightId: flightId } });
   } catch (error) {
-    console.log(error);
+    console.log("deleteFlight flightActions Error:", error);
   }
 };
 
@@ -46,6 +45,6 @@ export const updateFlight = (updatedFlight) => async (dispatch) => {
       payload: { updatedFlight: res.data },
     });
   } catch (error) {
-    console.log(error);
+    console.log("updateFlight flightActions Error:", error);
   }
 };

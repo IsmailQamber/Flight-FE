@@ -1,24 +1,26 @@
-import instance from "./instance";
 import decode from "jwt-decode";
-import * as types from "../actions/types";
 import Cookies from "js-cookie";
-import { useRadioGroup } from "@material-ui/core";
+import instance from "./instance";
+import * as types from "../actions/types";
 
-// REVIEW: Add a `setUser` function to cleanup your code
+const setUser = (token) => {
+  Cookies.set("myToken", token);
+  instance.defaults.headers.common.Authorization = `Bearer ${token}`;
+
+  return {
+    type: types.SET_USER,
+    payload: decode(token),
+  };
+};
 
 export const signup = (newUser, history) => async (dispatch) => {
   try {
     const res = await instance.post("/signup", newUser);
-    const token = Cookies.set("myToken", res.data.token);
-    instance.defaults.headers.common.Authorization = `Bearer ${token}`; // sending the token to the instance, so this will send the token everytime we trigger or use an action.
-    console.log(token);
+    await dispatch(setUser(res.data.token));
+    // sending the token to the instance, so this will send the token everytime we trigger or use an action.
     history.replace("/");
-    dispatch({
-      type: types.SET_USER,
-      payload: decode(res.data.token),
-    });
   } catch (error) {
-    console.log(error);
+    console.log("signup authActions Error:", error);
   }
 };
 
@@ -28,14 +30,10 @@ export const signin = (newData, history) => async (dispatch) => {
     const token = Cookies.set("myToken", res.data.token);
     instance.defaults.headers.common.Authorization = `Bearer ${token}`;
     // sending the token to the instance, so this will send the token everytime we trigger or use an action.
-    console.log(token);
     history.replace("/");
-    dispatch({
-      type: types.SET_USER,
-      payload: decode(res.data.token),
-    });
-  } catch {
-    console.log("Something went wrong");
+    dispatch(setUser(res.data.token));
+  } catch (error) {
+    console.log("signin authActions Error:", error);
   }
 };
 
@@ -46,28 +44,23 @@ export const checkToken = () => (dispatch) => {
     const currentTime = Date.now();
     if (currentTime < user.exp) {
       // checks if the token is expaired or not
-      Cookies.get("myToken"); //REVIEW: why?
-      dispatch({
-        type: types.SET_USER,
-        payload: user,
-      });
+      dispatch(setUser(token));
     } else {
-      dispatch(logout(user));
+      dispatch(logout());
     }
   }
 };
 
-export const logout = (user) => {
+export const logout = () => {
   Cookies.remove("myToken", { path: "/" }); // deletes the token from the cookie.
   delete instance.defaults.headers.common.Authorization; // deleting the token from the instance.
   return {
-    type: types.LOGOUT,
-    payload: { user },
+    type: types.SET_USER,
+    payload: null,
   };
 };
 
 export const userUpdate = (updatedUser, history) => async (dispatch) => {
-  console.log(updatedUser);
   try {
     const res = await instance.put("/profile", updatedUser);
     history.replace("/");
@@ -76,6 +69,6 @@ export const userUpdate = (updatedUser, history) => async (dispatch) => {
       payload: { updatedUser: res.data },
     });
   } catch (error) {
-    console.log("ERROR: ", error);
+    console.log("userUpdate authActions Error:", error);
   }
 };

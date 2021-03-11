@@ -1,4 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+// Styles
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -8,8 +12,8 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import { AirplanemodeActive, HomeOutlined } from "@material-ui/icons";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+
+// Actions
 import { logout } from "../store/actions/authActions";
 
 const useStyles = makeStyles((theme) => ({
@@ -26,12 +30,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MenuAppBar() {
   const classes = useStyles();
-  const [auth, setAuth] = React.useState(true);
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [auth, setAuth] = useState(true);
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.authReducer.user);
 
+  // are we using this ??
   const handleChange = (event) => {
     setAuth(event.target.checked);
   };
@@ -55,7 +60,6 @@ export default function MenuAppBar() {
       <AppBar position="static">
         <Toolbar>
           <Link to="/">
-            {" "}
             <IconButton>
               <HomeOutlined />
             </IconButton>
@@ -67,7 +71,7 @@ export default function MenuAppBar() {
           </Link>
 
           <Typography variant="h6" className={classes.title}>
-            Page Title
+            Flights Website
           </Typography>
           {auth && (
             <div>

@@ -1,25 +1,28 @@
 import { Route, Switch } from "react-router";
 
 //Routes
-import FlightList from "./FlightList";
-import Signup from "./Signup";
-import Signin from "./Signin";
-import UserProfile from "./UserProfile/UserProfile";
+import FlightList from "./Flight/FlightList";
+import FlightForm from "./Flight/FlightForm";
+import Signup from "./Authentication/Signup";
+import Signin from "./Authentication/Signin";
+import UserProfile from "./UserProfile";
 
 const Routes = () => {
   return (
     <Switch>
+      <Route path="/flights/new">
+        <FlightForm />
+      </Route>
       <Route path="/flights">
         <FlightList />
       </Route>
       <Route path="/user">
         <UserProfile />
       </Route>
-      {/* // REVIEW: Remove {} if only one path */}
-      <Route path={"/signup"}>
+      <Route path="/signup">
         <Signup />
       </Route>
-      <Route path={"/signin"}>
+      <Route path="/signin">
         <Signin />
       </Route>
     </Switch>

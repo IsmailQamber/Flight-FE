@@ -2,9 +2,12 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { signup } from "../store/actions/authActions";
 
-const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+// Actions
+import { signup } from "../../store/actions/authActions";
+
+// eslint-disable-next-line
+const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 const Signup = () => {
   const dispatch = useDispatch();
@@ -18,7 +21,6 @@ const Signup = () => {
 
   return (
     <form className="container" onSubmit={handleSubmit(onSubmit)}>
-      {/* <h1>{foundProduct ? "Update" : "Create"} Product</h1> */}
       <div className="form-group">
         <label className="form-label">name</label>
         <input
@@ -91,7 +93,6 @@ const Signup = () => {
         {errors.phoneNumber && <p>phone number is required</p>}
       </div>
       <button type="submit" className="btn btn-primary">
-        {/* {foundProduct ? "Update" : "Create"} */}
         Sign Up
       </button>
     </form>

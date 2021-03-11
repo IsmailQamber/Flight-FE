@@ -2,10 +2,12 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { userUpdate } from "../store/actions/authActions";
-import { useEffect } from "react";
 
-const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+// Actions
+import { userUpdate } from "../store/actions/authActions";
+
+// eslint-disable-next-line
+const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -36,7 +38,6 @@ const Profile = () => {
   }
   return (
     <form className="container" onSubmit={handleSubmit(onSubmit)}>
-      {/* <h1>{foundProduct ? "Update" : "Create"} Product</h1> */}
       <div className="form-group">
         <label className="form-label">name</label>
         <input
@@ -91,7 +92,6 @@ const Profile = () => {
         {errors.phoneNumber && <p>phone number is required</p>}
       </div>
       <button type="submit" className="btn btn-primary">
-        {/* {foundProduct ? "Update" : "Create"} */}
         Save Changes
       </button>
     </form>

@@ -2,19 +2,14 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { signin } from "../store/actions/authActions";
+
+// Actions
+import { signin } from "../../store/actions/authActions";
 
 const Signin = () => {
   const { handleSubmit, errors, register } = useForm();
   const history = useHistory();
   const dispatch = useDispatch();
-
-  // Remove commented out code
-
-  // const [user, setUser] = useState({
-  //   username: "",
-  //   password: "",
-  // });
 
   const onSubmit = (data, event) => {
     event.preventDefault();
@@ -23,7 +18,6 @@ const Signin = () => {
 
   return (
     <form className="container" onSubmit={handleSubmit(onSubmit)}>
-      {/* <h1>{foundProduct ? "Update" : "Create"} Product</h1> */}
       <div className="form-group">
         <label className="form-label">Name</label>
         <input
@@ -53,7 +47,6 @@ const Signin = () => {
         )}
       </div>
       <button type="submit" className="btn btn-primary">
-        {/* {foundProduct ? "Update" : "Create"} */}
         Sign In
       </button>
     </form>
