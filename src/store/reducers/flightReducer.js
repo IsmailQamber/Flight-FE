@@ -11,10 +11,10 @@ const flightReducer = (state = initialState, action) => {
       return { ...state, flights: action.payload, loading: false };
 
     case types.ADD_FLIGHT:
-      const { newFlight } = action.payload;
+      // const { newFlight } = action.payload;
       return {
         ...state,
-        flight: [...state.flight, newFlight],
+        flight: [...state.flight, action.payload.newFlight], //newFlight],
       };
 
     case types.REMOVE_FLIGHT:

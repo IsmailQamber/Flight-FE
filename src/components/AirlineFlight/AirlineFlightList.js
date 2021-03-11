@@ -25,14 +25,15 @@ const AirlineFlightList = () => {
   const user = useSelector((state) => state.authReducer.user);
   const airline = airlines.find((airline) => airline.userId === user.id);
   const airlineId = airline.id;
-
+  console.log(airlineId);
+  console.log(flights);
   const flightList = flights
     .filter((_flight) => _flight.airlineId === airlineId)
     .map((flight) => (
       <AirlineFlightItem flight={flight} key={flight.id} setId={setId} />
     ));
-
-  if (loading) return <Loading />;
+  console.log(flightList);
+  if (loading && airline) return <Loading />;
 
   return (
     <>

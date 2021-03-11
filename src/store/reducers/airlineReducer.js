@@ -1,7 +1,7 @@
 import * as types from "../actions/types";
 
 const initialState = {
-  airlines: [], // Flights Data,
+  airlines: [], // Airlines Data,
   loading: true,
 };
 
@@ -10,6 +10,12 @@ const flightReducer = (state = initialState, action) => {
     case types.FETCH_AIRLINE:
       return { ...state, airlines: action.payload, loading: false };
 
+    case types.ADD_AIRLINE:
+      const { newAirline } = action.payload;
+      return {
+        ...state,
+        flight: [...state.flight, newAirline],
+      };
     default:
       return state;
   }

@@ -10,3 +10,4 @@ export const FETCH_FLIGHT = "FETCH_FLIGHT";
 
 //AirLine Types
 export const FETCH_AIRLINE = "FETCH_AIRLINE";
+export const ADD_AIRLINE = "ADD_AIRLINE";

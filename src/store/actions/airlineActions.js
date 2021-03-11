@@ -7,7 +7,19 @@ export const fetchAirline = () => {
       const res = await instance.get("/airlines");
       dispatch({ type: types.FETCH_AIRLINE, payload: res.data });
     } catch (error) {
-      console.log("fetchFlights airportActions Error:", error);
+      console.log("fetchAirlines airlineActions Error:", error);
     }
   };
+};
+
+export const addAirline = (newAirline) => async (dispatch) => {
+  try {
+    const res = await instance.post("/flight", newAirline);
+    dispatch({
+      type: types.ADD_FLIGHT,
+      payload: { newAirline: res.data },
+    });
+  } catch (error) {
+    console.log("addAirline airlineActions Error:", error);
+  }
 };
