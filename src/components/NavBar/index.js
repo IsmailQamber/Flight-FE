@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 // Styles
-import { makeStyles } from "@material-ui/core/styles";
+
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -18,24 +18,11 @@ import {
 } from "@material-ui/icons";
 
 // Actions
-import { logout } from "../store/actions/authActions";
-import { fetchFlights } from "../store/actions/flightActions";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  },
-}));
+import { logout } from "../../store/actions/authActions";
+import { fetchFlights } from "../../store/actions/flightActions";
+import { useStyles } from "./Styles";
 
 export default function MenuAppBar() {
-  // const dispatch = useDispatch();
-  // dispatch(fetchFlights);
   const classes = useStyles();
   const [auth, setAuth] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
