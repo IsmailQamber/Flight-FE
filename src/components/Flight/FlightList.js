@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-
+import { useDispatch, useSelector } from "react-redux";
+import { Link, Redirect } from "react-router-dom";
+import UserProfile from "../UserProfile";
 // Styles
 import {
   IconButton,
@@ -16,15 +16,18 @@ import { Add } from "@material-ui/icons";
 // components
 import FlightItem from "./FlightItem";
 import Loading from "../Loading";
+import { fetchFlights } from "../../store/actions/flightActions";
 
 const FlightList = () => {
   let [id, setId] = useState([]);
   const loading = useSelector((state) => state.loading);
   const flights = useSelector((state) => state.flightReducer.flights);
   const user = useSelector((state) => state.authReducer.user);
+  if (user.isAirline) return <Redirect to="/airlineflights" />;
   const flightList = flights.map((flight) => (
     <FlightItem flight={flight} key={flight.id} setId={setId} />
   ));
+  <UserProfile flightId={id} />;
 
   if (loading) return <Loading />;
 

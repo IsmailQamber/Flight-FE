@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 
 // Actions
 import { addFlight } from "../../store/actions/flightActions";
-import { useHistory } from "react-router";
+import { Redirect, useHistory } from "react-router";
 
 const FlightForm = () => {
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -26,10 +26,6 @@ const FlightForm = () => {
   const currentAirline = airlines.find(
     (airline) => airline.name === user.username
   );
-  console.log(currentAirline.id);
-  // const airlines = useSelector(
-  //   (state) => state.airlineReducer.airlines.map((_airline) => _airline.id) //return the airline id
-  // );
 
   const history = useHistory();
   const dispatch = useDispatch();
@@ -41,6 +37,8 @@ const FlightForm = () => {
     dispatch(addFlight(data));
     history.push("/airlineflights");
   };
+
+  if (!user.isAirline) return <Redirect to="/" />;
 
   return (
     <form className="container" onSubmit={handleSubmit(onSubmit)}>

@@ -13,13 +13,13 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import {
   AirplanemodeActive,
-  AirplanemodeActiveOutlined,
   AirplanemodeActiveRounded,
   HomeOutlined,
 } from "@material-ui/icons";
 
 // Actions
 import { logout } from "../store/actions/authActions";
+import { fetchFlights } from "../store/actions/flightActions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,6 +34,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function MenuAppBar() {
+  // const dispatch = useDispatch();
+  // dispatch(fetchFlights);
   const classes = useStyles();
   const [auth, setAuth] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -42,6 +44,7 @@ export default function MenuAppBar() {
   const user = useSelector((state) => state.authReducer.user);
 
   // are we using this ??
+  // I dont think so!!
   const handleChange = (event) => {
     setAuth(event.target.checked);
   };
@@ -72,7 +75,7 @@ export default function MenuAppBar() {
 
           {user && !user.isAirline ? (
             <Link to="/flights">
-              <IconButton>
+              <IconButton onClick={dispatch(fetchFlights())}>
                 <AirplanemodeActive />
               </IconButton>
             </Link>
@@ -82,7 +85,7 @@ export default function MenuAppBar() {
 
           {user && user.isAirline ? (
             <Link to="/airlineflights">
-              <IconButton>
+              <IconButton onClick={dispatch(fetchFlights())}>
                 <AirplanemodeActiveRounded />
               </IconButton>
             </Link>
