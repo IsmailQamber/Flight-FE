@@ -3,10 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 
 // Actions
-import { Redirect, useHistory } from "react-router";
+import { Redirect, useHistory, useParams } from "react-router";
 import { addFlight, updateFlight } from "../../store/actions/flightActions";
-import { useHistory, useParams } from "react-router";
-
 
 const FlightForm = () => {
   const { flightId } = useParams();
@@ -31,7 +29,6 @@ const FlightForm = () => {
   const currentAirline = airlines.find(
     (airline) => airline.name === user.username
   );
-
 
   const history = useHistory();
   const dispatch = useDispatch();
