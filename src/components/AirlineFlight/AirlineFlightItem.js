@@ -12,8 +12,24 @@ import Avatar from "@material-ui/core/Avatar";
 import { AirplanemodeActiveTwoTone, Book, Edit } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import FlightForm from "./FlightForm";
+import { useSelector } from "react-redux";
 
-const AirlineFlightItem = ({ flight, setId }) => {
+const AirlineFlightItem = ({ flight, setId, airline }) => {
+  const airports = useSelector((state) => state.airportReducer.airports);
+
+  const arrivalAirportId = flight.arrivalAirportId;
+  const departureAirporId = flight.departureAirportId;
+
+  //finding the arrivalAirport for this flight
+  const arrivalAirport = airports.find(
+    (airport) => airport.id === arrivalAirportId
+  );
+
+  //finding the departureAirport for this flight
+  const departureAirport = airports.find(
+    (airport) => airport.id === departureAirporId
+  );
+
   const flightId = flight.id;
   <FlightForm flightId={flightId} />;
   return (
@@ -27,7 +43,7 @@ const AirlineFlightItem = ({ flight, setId }) => {
       </TableCell>
 
       <TableCell>
-        <ListItemText primary={flight.Airline} />
+        <ListItemText primary={airline.name} />
       </TableCell>
 
       <TableCell>
@@ -35,10 +51,12 @@ const AirlineFlightItem = ({ flight, setId }) => {
       </TableCell>
 
       <TableCell>
-        <ListItemText
-          primary={` ${flight.departureAirport}`}
-          secondary={` ${flight.arrivalAirport}`}
-        />
+        {airports && (
+          <ListItemText
+            primary={` Arrival Airport:  ${arrivalAirport.name}`}
+            secondary={` Departure Airport:  ${departureAirport.name}`}
+          />
+        )}
       </TableCell>
 
       <TableCell>
