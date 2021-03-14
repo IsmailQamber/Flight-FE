@@ -1,8 +1,5 @@
 import { Route, Switch } from "react-router";
-
-//Routes
 import FlightList from "./Flight/FlightList";
-
 import Signup from "./Authentication/Signup";
 import Signin from "./Authentication/Signin";
 import UserProfile from "./UserProfile";

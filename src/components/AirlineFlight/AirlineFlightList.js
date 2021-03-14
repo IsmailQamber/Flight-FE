@@ -22,6 +22,7 @@ import { fetchFlights } from "../../store/actions/flightActions";
 const AirlineFlightList = () => {
   let [id, setId] = useState([]);
   const loading = useSelector((state) => state.loading);
+  // Create controller in the BE to grab only related flights
   const flights = useSelector((state) => state.flightReducer.flights);
   const airlines = useSelector((state) => state.airlineReducer.airlines);
   const user = useSelector((state) => state.authReducer.user);
@@ -32,6 +33,7 @@ const AirlineFlightList = () => {
   // const ids = id;
   // const findFlight = flights.find((flight) => flight.id === ids); trying to book a flight
   // console.log(findFlight);
+
 
   const flightList = flights
     .filter((_flight) => _flight.airlineId === airlineId)
