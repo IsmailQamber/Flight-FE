@@ -3,8 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 
 // Actions
+import { Redirect, useHistory } from "react-router";
 import { addFlight, updateFlight } from "../../store/actions/flightActions";
 import { useHistory, useParams } from "react-router";
+
 
 const FlightForm = () => {
   const { flightId } = useParams();
@@ -30,9 +32,6 @@ const FlightForm = () => {
     (airline) => airline.name === user.username
   );
 
-  // const airlines = useSelector(
-  //   (state) => state.airlineReducer.airlines.map((_airline) => _airline.id) //return the airline id
-  // );
 
   const history = useHistory();
   const dispatch = useDispatch();
@@ -64,6 +63,8 @@ const FlightForm = () => {
     else dispatch(addFlight(data));
     history.push("/airlineflights");
   };
+
+  if (!user.isAirline) return <Redirect to="/" />;
 
   return (
     <form className="container" onSubmit={handleSubmit(onSubmit)}>

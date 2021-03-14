@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 // Styles
-import { makeStyles } from "@material-ui/core/styles";
+
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -13,25 +13,14 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import {
   AirplanemodeActive,
-  AirplanemodeActiveOutlined,
   AirplanemodeActiveRounded,
   HomeOutlined,
 } from "@material-ui/icons";
 
 // Actions
-import { logout } from "../store/actions/authActions";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  },
-}));
+import { logout } from "../../store/actions/authActions";
+import { fetchFlights } from "../../store/actions/flightActions";
+import { useStyles } from "./Styles";
 
 export default function MenuAppBar() {
   const classes = useStyles();
@@ -42,6 +31,7 @@ export default function MenuAppBar() {
   const user = useSelector((state) => state.authReducer.user);
 
   // are we using this ??
+  // I dont think so!!
   const handleChange = (event) => {
     setAuth(event.target.checked);
   };
@@ -72,7 +62,7 @@ export default function MenuAppBar() {
 
           {user && !user.isAirline ? (
             <Link to="/flights">
-              <IconButton>
+              <IconButton onClick={dispatch(fetchFlights())}>
                 <AirplanemodeActive />
               </IconButton>
             </Link>
@@ -82,7 +72,7 @@ export default function MenuAppBar() {
 
           {user && user.isAirline ? (
             <Link to="/airlineflights">
-              <IconButton>
+              <IconButton onClick={dispatch(fetchFlights())}>
                 <AirplanemodeActiveRounded />
               </IconButton>
             </Link>
