@@ -9,7 +9,7 @@ import FlightForm from "./AirlineFlight/FlightForm";
 const Routes = () => {
   return (
     <Switch>
-      <Route path="/flights/new">
+      <Route path={["/airlineflights/new", "/airlineflights/:flightId/edit"]}>
         <FlightForm />
       </Route>
       <Route path="/airlineflights">
