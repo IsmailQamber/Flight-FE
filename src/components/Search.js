@@ -6,29 +6,95 @@ import parse from "autosuggest-highlight/parse";
 import match from "autosuggest-highlight/match";
 import { SearchRounded } from "@material-ui/icons";
 import {
+  Grid,
   IconButton,
   Input,
   InputAdornment,
   InputBase,
   InputLabel,
   makeStyles,
+  Switch,
+  Typography,
+  withStyles,
 } from "@material-ui/core";
+import { KeyboardDatePicker } from "@material-ui/pickers";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles({
   root: {
     marginLeft: 10,
   },
+  taree5: {
+    marginLeft: 200,
+  },
 });
 
+const AntSwitch = withStyles((theme) => ({
+  root: {
+    width: 28,
+    height: 16,
+    padding: 0,
+    display: "flex",
+  },
+  switchBase: {
+    padding: 2,
+    color: theme.palette.grey[500],
+    "&$checked": {
+      transform: "translateX(12px)",
+      color: theme.palette.common.white,
+      "& + $track": {
+        opacity: 1,
+        backgroundColor: theme.palette.primary.main,
+        borderColor: theme.palette.primary.main,
+      },
+    },
+  },
+  thumb: {
+    width: 12,
+    height: 12,
+    boxShadow: "none",
+  },
+  track: {
+    border: `1px solid ${theme.palette.grey[500]}`,
+    borderRadius: 16 / 2,
+    opacity: 1,
+    backgroundColor: theme.palette.common.white,
+  },
+  checked: {},
+}))(Switch);
+
 const Search = () => {
+  const [state, setState] = React.useState({
+    checkedA: true,
+    checkedB: true,
+    checkedC: true,
+  });
+
+  const handleChange = (event) => {
+    setState({ ...state, [event.target.name]: event.target.checked });
+  };
+  const airports = useSelector((state) => state.airportReducer.airports);
   const classes = useStyles();
   return (
     <div className={classes.root}>
+      <Typography component="div">
+        <Grid component="label" container alignItems="center" spacing={1}>
+          <Grid item>One Way</Grid>
+          <Grid item>
+            <AntSwitch
+              checked={state.checkedC}
+              onChange={handleChange}
+              name="checkedC"
+            />
+          </Grid>
+          <Grid item>Round Trip</Grid>
+        </Grid>
+      </Typography>
       <Autocomplete
         id="highlights-demo"
         style={{ width: 300 }}
-        options={top100Films}
-        getOptionLabel={(option) => option.title}
+        options={airports} //{top100Films}
+        getOptionLabel={(option) => option.code}
         renderInput={(params) => (
           <TextField
             {...params}
@@ -38,8 +104,8 @@ const Search = () => {
           />
         )}
         renderOption={(option, { inputValue }) => {
-          const matches = match(option.title, inputValue);
-          const parts = parse(option.title, matches);
+          const matches = match(option.code, inputValue);
+          const parts = parse(option.code, matches);
 
           return (
             <div>
@@ -58,8 +124,8 @@ const Search = () => {
       <Autocomplete
         id="highlights-demo"
         style={{ width: 300 }}
-        options={top100Films}
-        getOptionLabel={(option) => option.title}
+        options={airports} //{top100Films}
+        getOptionLabel={(option) => option.code}
         renderInput={(params) => (
           <TextField
             {...params}
@@ -69,8 +135,8 @@ const Search = () => {
           />
         )}
         renderOption={(option, { inputValue }) => {
-          const matches = match(option.title, inputValue);
-          const parts = parse(option.title, matches);
+          const matches = match(option.code, inputValue);
+          const parts = parse(option.code, matches);
 
           return (
             <div>
@@ -86,7 +152,29 @@ const Search = () => {
           );
         }}
       />
-      <Input type="date" />
+      <TextField
+        id="date"
+        label="Departure Date"
+        type="date"
+        className={classes.textField}
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />{" "}
+      {state.checkedC ? (
+        <TextField
+          className={classes.taree5}
+          id="date"
+          label="Return Date"
+          type="date"
+          className={classes.textField}
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+      ) : (
+        ""
+      )}
       <IconButton>
         <SearchRounded />
       </IconButton>

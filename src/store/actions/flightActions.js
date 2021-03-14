@@ -45,7 +45,6 @@ export const updateFlight = (updatedFlight) => async (dispatch) => {
       payload: { updatedFlight: res.data },
     });
   } catch (error) {
-    console.log("updateId", updatedFlight.flightId);
     console.log("updateFlight flightActions Error:", error);
   }
 };
