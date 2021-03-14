@@ -55,13 +55,14 @@ const AirlineFlightList = () => {
             <TableCell>Date</TableCell>
             <TableCell>Seats</TableCell>
             <TableCell>Book</TableCell>
+            <TableCell>Edit</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>{flightList}</TableBody>
       </Table>
 
       {user && user.isAirline === true && (
-        <Link to="/flights/new">
+        <Link to="/airlineflights/new">
           <IconButton>
             <Add />
           </IconButton>

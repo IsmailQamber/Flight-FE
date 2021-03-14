@@ -9,9 +9,13 @@ import {
 } from "@material-ui/core";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
-import { AirplanemodeActiveTwoTone, Book } from "@material-ui/icons";
+import { AirplanemodeActiveTwoTone, Book, Edit } from "@material-ui/icons";
+import { Link } from "react-router-dom";
+import FlightForm from "./FlightForm";
 
 const AirlineFlightItem = ({ flight, setId }) => {
+  const flightId = flight.id;
+  <FlightForm flightId={flightId} />;
   return (
     <TableRow>
       <TableCell>
@@ -62,6 +66,13 @@ const AirlineFlightItem = ({ flight, setId }) => {
         <IconButton onClick={() => setId((array) => [...array, flight.id])}>
           <Book />
         </IconButton>
+      </TableCell>
+      <TableCell>
+        <Link to={`/airlineflights/${flightId}/edit`}>
+          <IconButton>
+            <Edit />
+          </IconButton>
+        </Link>
       </TableCell>
     </TableRow>
   );
