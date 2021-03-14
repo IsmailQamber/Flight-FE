@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, Redirect } from "react-router-dom";
 
 // Styles
 import {
@@ -16,14 +16,18 @@ import { Add } from "@material-ui/icons";
 // components
 import Loading from "../Loading";
 import AirlineFlightItem from "./AirlineFlightItem";
+import UserProfile from "../UserProfile";
+import { fetchFlights } from "../../store/actions/flightActions";
 
 const AirlineFlightList = () => {
   let [id, setId] = useState([]);
   const loading = useSelector((state) => state.loading);
+  // Create controller in the BE to grab only related flights
   const flights = useSelector((state) => state.flightReducer.flights);
   const airlines = useSelector((state) => state.airlineReducer.airlines);
   const user = useSelector((state) => state.authReducer.user);
   const airline = airlines.find((airline) => airline.userId === user.id);
+
   let airlineId = null;
 
   if (airline) {
@@ -37,8 +41,9 @@ const AirlineFlightList = () => {
     .map((flight) => (
       <AirlineFlightItem flight={flight} key={flight.id} setId={setId} />
     ));
-  console.log(flightList);
-  if (loading) return <Loading />;
+
+  if (!user.isAirline) return <Redirect to="/flights" />;
+  if (loading && airline) return <Loading />;
 
   return (
     <>
@@ -53,13 +58,14 @@ const AirlineFlightList = () => {
             <TableCell>Date</TableCell>
             <TableCell>Seats</TableCell>
             <TableCell>Book</TableCell>
+            <TableCell>Edit</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>{flightList}</TableBody>
       </Table>
 
       {user && user.isAirline === true && (
-        <Link to="/flights/new">
+        <Link to="/airlineflights/new">
           <IconButton>
             <Add />
           </IconButton>

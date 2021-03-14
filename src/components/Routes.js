@@ -1,8 +1,5 @@
 import { Route, Switch } from "react-router";
-
-//Routes
 import FlightList from "./Flight/FlightList";
-
 import Signup from "./Authentication/Signup";
 import Signin from "./Authentication/Signin";
 import UserProfile from "./UserProfile";
@@ -12,7 +9,7 @@ import FlightForm from "./AirlineFlight/FlightForm";
 const Routes = () => {
   return (
     <Switch>
-      <Route path="/flights/new">
+      <Route path={["/airlineflights/new", "/airlineflights/:flightId/edit"]}>
         <FlightForm />
       </Route>
       <Route path="/airlineflights">
