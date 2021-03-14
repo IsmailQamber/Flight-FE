@@ -20,11 +20,13 @@ import AirlineFlightItem from "./AirlineFlightItem";
 const AirlineFlightList = () => {
   let [id, setId] = useState([]);
   const loading = useSelector((state) => state.loading);
+  // Create controller in the BE to grab only related flights
   const flights = useSelector((state) => state.flightReducer.flights);
   const airlines = useSelector((state) => state.airlineReducer.airlines);
   const user = useSelector((state) => state.authReducer.user);
   const airline = airlines.find((airline) => airline.userId === user.id);
   const airlineId = airline.id;
+  // Remove logs after it's functional
   console.log(airlineId);
   console.log(flights);
   const flightList = flights
