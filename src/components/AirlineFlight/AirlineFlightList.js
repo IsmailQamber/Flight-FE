@@ -24,7 +24,12 @@ const AirlineFlightList = () => {
   const airlines = useSelector((state) => state.airlineReducer.airlines);
   const user = useSelector((state) => state.authReducer.user);
   const airline = airlines.find((airline) => airline.userId === user.id);
-  const airlineId = airline.id;
+  let airlineId = null;
+
+  if (airline) {
+    airlineId = airline.id;
+  } else console.log("airline is not found");
+
   console.log(airlineId);
   console.log(flights);
   const flightList = flights
@@ -33,7 +38,7 @@ const AirlineFlightList = () => {
       <AirlineFlightItem flight={flight} key={flight.id} setId={setId} />
     ));
   console.log(flightList);
-  if (loading && airline) return <Loading />;
+  if (loading) return <Loading />;
 
   return (
     <>
