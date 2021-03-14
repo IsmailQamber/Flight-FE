@@ -37,15 +37,15 @@ export const deleteFlight = (flightId) => async (dispatch) => {
 export const updateFlight = (updatedFlight) => async (dispatch) => {
   try {
     const res = await instance.put(
-      `/flight/${updatedFlight.id}`,
+      `/flights/${updatedFlight.flightId}`,
       updatedFlight
     );
-
     dispatch({
       type: types.UPDATE_FLIGHT,
       payload: { updatedFlight: res.data },
     });
   } catch (error) {
+    console.log("updateId", updatedFlight.flightId);
     console.log("updateFlight flightActions Error:", error);
   }
 };

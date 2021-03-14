@@ -29,7 +29,7 @@ const flightReducer = (state = initialState, action) => {
       const { updatedFlight } = action.payload;
       return {
         ...state,
-        flight: state.flight.map((flight) =>
+        flight: state.flights.map((flight) =>
           flight.id === updatedFlight.id ? updatedFlight : flight
         ),
       };
