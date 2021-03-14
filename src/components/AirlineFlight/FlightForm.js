@@ -5,6 +5,10 @@ import { useForm } from "react-hook-form";
 // Actions
 import { Redirect, useHistory, useParams } from "react-router";
 import { addFlight, updateFlight } from "../../store/actions/flightActions";
+import TextField from "@material-ui/core/TextField";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import parse from "autosuggest-highlight/parse";
+import match from "autosuggest-highlight/match";
 
 const FlightForm = () => {
   const { flightId } = useParams();
@@ -25,11 +29,14 @@ const FlightForm = () => {
   const airlines = useSelector((state) => state.airlineReducer.airlines);
   const flights = useSelector((state) => state.flightReducer.flights);
   const flight = flights.find((flight) => flight.id === +flightId);
+  const airports = useSelector((state) => state.airportReducer.airports);
 
-  const currentAirline = airlines.find(
-    (airline) => airline.name === user.username
-  );
-
+  const currentAirline = airlines.find((airline) => airline.userId === user.id);
+  console.log(currentAirline);
+  let airlineId;
+  if (currentAirline) {
+    airlineId = currentAirline.id;
+  }
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -54,10 +61,12 @@ const FlightForm = () => {
 
   const onSubmit = (data) => {
     console.log("before", data);
-    data = { ...data, airlineId: currentAirline.id, flightId: flight.id };
+    data = { ...data, airlineId: airlineId }; //, flightId: flight.id };
     console.log("after", data);
-    if (flight) dispatch(updateFlight(data));
-    else dispatch(addFlight(data));
+    if (flight) {
+      data = { ...data, flightId: flight.id };
+      dispatch(updateFlight(data));
+    } else dispatch(addFlight(data));
     history.push("/airlineflights");
   };
 
@@ -71,6 +80,7 @@ const FlightForm = () => {
           type="number"
           name="price"
           className="form-control"
+          defaultValue="190"
           ref={register({ required: true })}
         />
       </div>
@@ -80,6 +90,7 @@ const FlightForm = () => {
           type="date"
           name="departureDate"
           className="form-control"
+          defaultValue="2021-03-30"
           ref={register({ required: true })} //, validate: validateTime })}
         />
         {/* {errors.departureDate && <p>Date has passed</p>} */}
@@ -90,6 +101,7 @@ const FlightForm = () => {
           type="date"
           name="arrivalDate"
           className="form-control"
+          defaultValue="2021-03-30"
           ref={register({ required: true })} //, validate: validateTime })}
         />
         {/* {errors.arrivalDate && <p>Date has passed</p>} */}
@@ -100,6 +112,7 @@ const FlightForm = () => {
           type="time"
           name="departureTime"
           className="form-control"
+          defaultValue="23:00:00"
           ref={register({ required: true })} //, validate: validateTime })}
         />
         {/* {errors.departureTime && <p>Time has passed</p>} */}
@@ -110,6 +123,7 @@ const FlightForm = () => {
           type="time"
           name="arrivalTime"
           className="form-control"
+          defaultValue="23:00:00"
           ref={register({ required: true })} //, validate: validateTime })}
         />
         {/* {errors.arrivalTime && <p>Time has passed</p>} */}
@@ -120,6 +134,7 @@ const FlightForm = () => {
           type="number"
           name="economySeats"
           className="form-control"
+          defaultValue="50"
           ref={register({ required: true })}
         />
       </div>
@@ -129,28 +144,42 @@ const FlightForm = () => {
           type="number"
           name="businessSeats"
           className="form-control"
+          defaultValue="15"
           ref={register({ required: true })}
         />
       </div>
-      {/* <div className="form-group">
-        <label className="form-label">Airline</label>
-        <input
-          // disabled={true}
-          // type="number"
-          name="airlineId"
-          value={currentAirline.id} //{airlines}
-          className="form-control"
-          ref={register({ required: true })}
-        />
-      </div> */}
-      {/* - Airline (from token)
-- Price
-- Departure Date
-- Arrival Date
-- Departure Time
-- Arrival Time
-- Departure Airport
-- Arrival Airport */}
+      <Autocomplete
+        style={{ width: 300 }}
+        options={airports} //{top100Films}
+        getOptionLabel={(option) => option.code}
+        renderInput={(params) => (
+          <TextField
+            ref={register({ required: true })}
+            name="departureAirportId"
+            {...params}
+            label="From"
+            variant="outlined"
+            margin="normal"
+          />
+        )}
+        renderOption={(option, { inputValue }) => {
+          const matches = match(option.id, inputValue);
+          const parts = parse(option.id, matches);
+
+          return (
+            <div>
+              {parts.map((part, index) => (
+                <span
+                  key={index}
+                  style={{ fontWeight: part.highlight ? 700 : 400 }}
+                >
+                  {part.text}
+                </span>
+              ))}
+            </div>
+          );
+        }}
+      />
 
       <button type="submit" className="btn btn-primary">
         Add Flight

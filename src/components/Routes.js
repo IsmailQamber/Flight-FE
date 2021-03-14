@@ -5,6 +5,7 @@ import Signin from "./Authentication/Signin";
 import UserProfile from "./UserProfile";
 import AirlineFlightList from "./AirlineFlight/AirlineFlightList";
 import FlightForm from "./AirlineFlight/FlightForm";
+import Search from "./Search";
 
 const Routes = () => {
   return (
@@ -26,6 +27,9 @@ const Routes = () => {
       </Route>
       <Route path="/signin">
         <Signin />
+      </Route>
+      <Route>
+        <Search />
       </Route>
     </Switch>
   );
