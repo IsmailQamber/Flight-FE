@@ -5,7 +5,7 @@ const initialState = {
   loading: true,
 };
 
-const flightReducer = (state = initialState, action) => {
+const airportReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.FETCH_AIRPORT:
       return { ...state, airports: action.payload, loading: false };
@@ -15,4 +15,4 @@ const flightReducer = (state = initialState, action) => {
   }
 };
 
-export default flightReducer;
+export default airportReducer;
