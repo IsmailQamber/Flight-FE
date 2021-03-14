@@ -15,7 +15,7 @@ import FlightForm from "./FlightForm";
 
 const AirlineFlightItem = ({ flight, setId }) => {
   const flightId = flight.id;
-
+  <FlightForm flightId={flightId} />;
   return (
     <TableRow>
       <TableCell>

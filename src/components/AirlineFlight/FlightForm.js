@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 
 // Actions
-import { addFlight } from "../../store/actions/flightActions";
+import { addFlight, updateFlight } from "../../store/actions/flightActions";
 import { useHistory, useParams } from "react-router";
 
 const FlightForm = () => {
@@ -24,12 +24,12 @@ const FlightForm = () => {
   const user = useSelector((state) => state.authReducer.user);
   const airlines = useSelector((state) => state.airlineReducer.airlines);
   const flights = useSelector((state) => state.flightReducer.flights);
-  const flight = flights.find((flight) => flight.id === flightId);
-  console.log(flight);
+  const flight = flights.find((flight) => flight.id === +flightId);
+
   const currentAirline = airlines.find(
     (airline) => airline.name === user.username
   );
-  console.log(currentAirline.id);
+
   // const airlines = useSelector(
   //   (state) => state.airlineReducer.airlines.map((_airline) => _airline.id) //return the airline id
   // );
@@ -37,28 +37,31 @@ const FlightForm = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  // let preloadedValues = {};
-  // if (user) {
-  //   preloadedValues = {
-  //     economySeats: flight.economySeats,
-  //     businessSeats: flight.businessSeats,
-  //     price: flight.price,
-  //     departureDate: flight.departureDate,
-  //     arrivalDate: flight.arrivalDate,
-  //     departureTime: flight.departureTime,
-  //     arrivalTime: flight.arrivalTime,
-  //     departureAirportId: flight.arrivalAirportId,
-  //     arrivalAirportId: flight.departureAirportId,
-  //     airlineId: flight.airlineId,
-  //   };
-  // }
+  let preloadedValues = {};
+  if (flight) {
+    preloadedValues = {
+      economySeats: flight.economySeats,
+      businessSeats: flight.businessSeats,
+      price: flight.price,
+      departureDate: flight.departureDate,
+      arrivalDate: flight.arrivalDate,
+      departureTime: flight.departureTime,
+      arrivalTime: flight.arrivalTime,
+      departureAirportId: flight.arrivalAirportId,
+      arrivalAirportId: flight.departureAirportId,
+      airlineId: flight.airlineId,
+    };
+  }
   const { handleSubmit, errors, register } = useForm({
-    // defaultValues: preloadedValues,
+    defaultValues: preloadedValues,
   });
 
   const onSubmit = (data) => {
-    data = { ...data, airlineId: currentAirline.id };
-    dispatch(addFlight(data));
+    console.log("before", data);
+    data = { ...data, airlineId: currentAirline.id, flightId: flight.id };
+    console.log("after", data);
+    if (flight) dispatch(updateFlight(data));
+    else dispatch(addFlight(data));
     history.push("/airlineflights");
   };
 
