@@ -11,6 +11,18 @@ export const fetchFlights = () => {
     }
   };
 };
+export const searchFlight = (searchedFlight) => {
+  return async (dispatch) => {
+    try {
+      const res = await instance.get("/flights/search", searchedFlight);
+      console.log("coming from the actions: ", searchedFlight);
+      console.log("search Action response: ", res.data);
+      dispatch({ type: types.SEARCH_FLIGHT, payload: res.data });
+    } catch (error) {
+      console.log("searchFlight flightActions Error:", error);
+    }
+  };
+};
 
 export const addFlight = (newFlight) => async (dispatch) => {
   try {

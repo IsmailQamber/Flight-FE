@@ -1,5 +1,6 @@
 /* eslint-disable no-use-before-define */
 import React from "react";
+import { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import parse from "autosuggest-highlight/parse";
@@ -18,7 +19,9 @@ import {
   withStyles,
 } from "@material-ui/core";
 import { KeyboardDatePicker } from "@material-ui/pickers";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import moment from "moment";
+import { searchFlight } from "../store/actions/flightActions";
 
 const useStyles = makeStyles({
   root: {
@@ -63,17 +66,60 @@ const AntSwitch = withStyles((theme) => ({
   checked: {},
 }))(Switch);
 
-const Search = ({ setDepdt, setArrdt }) => {
-  const [state, setState] = React.useState({
+const Search = () => {
+  const [state, setState] = useState({
     checkedA: true,
     checkedB: true,
     checkedC: true,
   });
 
-  const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
+  const dispatch = useDispatch();
+  const [depdt, setDepdt] = useState(moment().format("YYYY-MM-DD"));
+  const [arrdt, setArrdt] = useState();
+  const [arrport, setArrport] = useState();
+  const [deptport, setDeptport] = useState();
+  const [_switch, setSwitch] = useState({
+    checked: true,
+  });
+  const [seatType, setSeatType] = useState();
+  const [pssnumber, Setpssnumber] = useState();
+
+  let data = {
+    departureDate: moment(depdt).format("YYYY-MM-DD"),
+    // arrivalDate: moment(arrdt).format("YYYY-MM-DD"),
+    departureAirportId: deptport,
+    arrivalAirportId: arrport,
+  };
+
+  const handleSubmit = () => {
+    //Checking seatType and adding it to data object
+    if (seatType === "Economy") {
+      data = { ...data, economySeats: pssnumber };
+    } else {
+      data = { ...data, businessSeats: pssnumber };
+    }
+    //Checking of the flight is oneWay or a roundTrip
+    if (state.checkedC === true) {
+      data = { ...data, arrivalDate: moment(arrdt).format("YYYY-MM-DD") };
+    }
+    console.log("search component: ", data);
+    dispatch(searchFlight(data));
+  };
+
+  const handleSwitch = (event) => {
+    setSwitch({ ..._switch, [event.target.name]: event.target.checked });
+    if (_switch.checked === true) {
+      setSeatType("Economy");
+    } else setSeatType("Business");
+  };
+
+  const handleChange = (e) => {
+    setState({ ...state, [e.target.name]: e.target.checked });
   };
   const airports = useSelector((state) => state.airportReducer.airports);
+  const airportz = airports.map((airport) => (
+    <option value={airport.id}>{airport.name}</option>
+  ));
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -90,73 +136,55 @@ const Search = ({ setDepdt, setArrdt }) => {
           <Grid item>Round Trip</Grid>
         </Grid>
       </Typography>
-      <Autocomplete
-        id="highlights-demo"
-        style={{ width: 300 }}
-        options={airports} //{top100Films}
-        getOptionLabel={(option) => option.code}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label="From"
-            variant="outlined"
-            margin="normal"
-          />
-        )}
-        renderOption={(option, { inputValue }) => {
-          const matches = match(option.code, inputValue);
-          const parts = parse(option.code, matches);
-
-          return (
-            <div>
-              {parts.map((part, index) => (
-                <span
-                  key={index}
-                  style={{ fontWeight: part.highlight ? 700 : 400 }}
-                >
-                  {part.text}
-                </span>
-              ))}
-            </div>
-          );
-        }}
-      />
-      <Autocomplete
-        id="highlights-demo"
-        style={{ width: 300 }}
-        options={airports} //{top100Films}
-        getOptionLabel={(option) => option.code}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label="To"
-            variant="outlined"
-            margin="normal"
-          />
-        )}
-        renderOption={(option, { inputValue }) => {
-          const matches = match(option.code, inputValue);
-          const parts = parse(option.code, matches);
-
-          return (
-            <div>
-              {parts.map((part, index) => (
-                <span
-                  key={index}
-                  style={{ fontWeight: part.highlight ? 700 : 400 }}
-                >
-                  {part.text}
-                </span>
-              ))}
-            </div>
-          );
-        }}
-      />
+      <div className="form-group">
+        <label className="form-label">Departure Airport</label>
+        <select
+          name="departureAirportId"
+          onChange={(event) =>
+            arrport !== event.target.value
+              ? setDeptport(event.target.value)
+              : alert("Departure airport and Arrival airport can't be the same")
+          }
+        >
+          {airportz}
+        </select>
+      </div>
+      <div className="form-group">
+        <label className="form-label">Arrival Airport</label>
+        <select
+          name="arrivalAirportId"
+          onChange={(event) =>
+            deptport !== event.target.value
+              ? setArrport(event.target.value)
+              : alert("Departure airport and Arrival airport can't be the same")
+          }
+        >
+          {airportz}
+        </select>
+      </div>
+      <Typography component="div">
+        <Grid component="label" container alignItems="center" spacing={1}>
+          <Grid item>Economy</Grid>
+          <Grid item>
+            <AntSwitch
+              checked={_switch.checked}
+              onChange={handleSwitch}
+              name="checked"
+            />
+          </Grid>
+          <Grid item>Business</Grid>
+        </Grid>
+      </Typography>
+      <Input
+        type="number"
+        onChange={(event) => Setpssnumber(event.target.value)}
+      ></Input>
       <TextField
-        onChange={(event) => setDepdt(event.target.value)}
+        onChange={(event) => setDepdt(moment(event.target.value))}
         id="date"
         label="Departure Date"
         type="date"
+        defaultValue={depdt}
         className={classes.textField}
         InputLabelProps={{
           shrink: true,
@@ -164,11 +192,16 @@ const Search = ({ setDepdt, setArrdt }) => {
       />{" "}
       {state.checkedC ? (
         <TextField
-          onChange={(event) => setArrdt(event.target.value)}
+          onChange={(event) =>
+            depdt < moment(event.target.value)
+              ? setArrdt(moment(event.target.value))
+              : alert("Return Date can't be before the Departure Date")
+          }
           className={classes.taree5}
           id="date"
           label="Return Date"
           type="date"
+          defaultValue={arrdt}
           className={classes.textField}
           InputLabelProps={{
             shrink: true,
@@ -177,7 +210,7 @@ const Search = ({ setDepdt, setArrdt }) => {
       ) : (
         ""
       )}
-      <IconButton>
+      <IconButton onClick={handleSubmit}>
         <SearchRounded />
       </IconButton>
     </div>
