@@ -39,7 +39,12 @@ const AirlineFlightList = () => {
   const flightList = flights
     .filter((_flight) => _flight.airlineId === airlineId)
     .map((flight) => (
-      <AirlineFlightItem flight={flight} key={flight.id} setId={setId} />
+      <AirlineFlightItem
+        flight={flight}
+        key={flight.id}
+        setId={setId}
+        airline={airline}
+      />
     ));
 
   if (!user.isAirline) return <Redirect to="/flights" />;

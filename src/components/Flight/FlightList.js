@@ -26,6 +26,7 @@ const FlightList = () => {
   const loading = useSelector((state) => state.loading);
   const flights = useSelector((state) => state.flightReducer.flights);
   const user = useSelector((state) => state.authReducer.user);
+
   if (user.isAirline) return <Redirect to="/airlineflights" />;
   const flightList = flights
     .filter(
