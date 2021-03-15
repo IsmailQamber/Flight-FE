@@ -76,27 +76,27 @@ const Search = () => {
   const dispatch = useDispatch();
   const [depdt, setDepdt] = useState(moment().format("YYYY-MM-DD"));
   const [arrdt, setArrdt] = useState();
-  const [arrport, setArrport] = useState();
-  const [deptport, setDeptport] = useState();
+  const [arrport, setArrport] = useState(1);
+  const [deptport, setDeptport] = useState(2);
   const [_switch, setSwitch] = useState({
-    checked: true,
+    checked: false,
   });
-  const [seatType, setSeatType] = useState();
-  const [pssnumber, Setpssnumber] = useState();
+  const [seatType, setSeatType] = useState("Economy");
+  const [pssnumber, Setpssnumber] = useState(5);
 
   let data = {
     departureDate: moment(depdt).format("YYYY-MM-DD"),
     // arrivalDate: moment(arrdt).format("YYYY-MM-DD"),
-    departureAirportId: deptport,
-    arrivalAirportId: arrport,
+    departureAirportId: +deptport,
+    arrivalAirportId: +arrport,
   };
 
   const handleSubmit = () => {
     //Checking seatType and adding it to data object
     if (seatType === "Economy") {
-      data = { ...data, economySeats: pssnumber };
+      data = { ...data, economySeats: +pssnumber };
     } else {
-      data = { ...data, businessSeats: pssnumber };
+      data = { ...data, businessSeats: +pssnumber };
     }
     //Checking of the flight is oneWay or a roundTrip
     if (state.checkedC === true) {

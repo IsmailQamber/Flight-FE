@@ -11,17 +11,33 @@ export const fetchFlights = () => {
     }
   };
 };
-export const searchFlight = (searchedFlight) => {
-  return async (dispatch) => {
-    try {
-      const res = await instance.get("/flights/search", searchedFlight);
-      console.log("coming from the actions: ", searchedFlight);
-      console.log("search Action response: ", res.data);
-      dispatch({ type: types.SEARCH_FLIGHT, payload: res.data });
-    } catch (error) {
-      console.log("searchFlight flightActions Error:", error);
-    }
-  };
+
+export const searchFlight = (searchedFlight) => async (dispatch) => {
+  // {return
+  try {
+    console.log("coming from the actions: ", searchedFlight);
+    const res = await instance.post(`/flights/search`, searchedFlight);
+    console.log("search Action response: ", res.data);
+    dispatch({ type: types.SEARCH_FLIGHT, payload: res.data });
+  } catch (error) {
+    console.log("searchFlight flightActions Error:", error);
+  }
+};
+// };
+
+export const updateFlight = (updatedFlight) => async (dispatch) => {
+  try {
+    const res = await instance.put(
+      `/flights/${updatedFlight.flightId}`,
+      updatedFlight
+    );
+    dispatch({
+      type: types.UPDATE_FLIGHT,
+      payload: { updatedFlight: res.data },
+    });
+  } catch (error) {
+    console.log("updateFlight flightActions Error:", error);
+  }
 };
 
 export const addFlight = (newFlight) => async (dispatch) => {
@@ -43,20 +59,5 @@ export const deleteFlight = (flightId) => async (dispatch) => {
     dispatch({ type: types.REMOVE_FLIGHT, payload: { flightId: flightId } });
   } catch (error) {
     console.log("deleteFlight flightActions Error:", error);
-  }
-};
-
-export const updateFlight = (updatedFlight) => async (dispatch) => {
-  try {
-    const res = await instance.put(
-      `/flights/${updatedFlight.flightId}`,
-      updatedFlight
-    );
-    dispatch({
-      type: types.UPDATE_FLIGHT,
-      payload: { updatedFlight: res.data },
-    });
-  } catch (error) {
-    console.log("updateFlight flightActions Error:", error);
   }
 };
