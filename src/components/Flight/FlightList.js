@@ -17,22 +17,32 @@ import { Add } from "@material-ui/icons";
 import FlightItem from "./FlightItem";
 import Loading from "../Loading";
 import { fetchFlights } from "../../store/actions/flightActions";
+import Search from "../Search";
 
 const FlightList = () => {
+  let [depdt, setDepdt] = useState();
+  let [arrdt, setArrdt] = useState();
   let [id, setId] = useState([]);
   const loading = useSelector((state) => state.loading);
   const flights = useSelector((state) => state.flightReducer.flights);
   const user = useSelector((state) => state.authReducer.user);
   if (user.isAirline) return <Redirect to="/airlineflights" />;
-  const flightList = flights.map((flight) => (
-    <FlightItem flight={flight} key={flight.id} setId={setId} />
-  ));
+  const flightList = flights
+    .filter(
+      (flight) =>
+        flight.departureDate.includes(depdt) &&
+        flight.arrivalDate.includes(arrdt)
+    )
+    .map((flight) => (
+      <FlightItem flight={flight} key={flight.id} setId={setId} />
+    ));
   <UserProfile flightId={id} />;
 
   if (loading) return <Loading />;
 
   return (
     <>
+      <Search setDepdt={setDepdt} setArrdt={setArrdt} />
       <Table size="small">
         <TableHead>
           <TableRow>
