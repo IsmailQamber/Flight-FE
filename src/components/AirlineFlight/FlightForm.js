@@ -165,7 +165,7 @@ const FlightForm = () => {
       </div>
 
       <button type="submit" className="btn btn-primary">
-        Add Flight
+        {flight ? "Add Flight" : "Update Flight"}
       </button>
     </form>
   );
