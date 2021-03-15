@@ -50,8 +50,8 @@ const FlightForm = () => {
       arrivalDate: flight.arrivalDate,
       departureTime: flight.departureTime,
       arrivalTime: flight.arrivalTime,
-      departureAirportId: flight.arrivalAirportId,
-      arrivalAirportId: flight.departureAirportId,
+      departureAirportId: flight.departureAirportId,
+      arrivalAirportId: flight.arrivalAirportId,
       airlineId: flight.airlineId,
     };
   }
@@ -71,6 +71,9 @@ const FlightForm = () => {
   };
 
   if (!user.isAirline) return <Redirect to="/" />;
+  const airportz = airports.map((airport) => (
+    <option value={airport.id}>{airport.code}</option>
+  ));
 
   return (
     <form className="container" onSubmit={handleSubmit(onSubmit)}>
@@ -148,41 +151,21 @@ const FlightForm = () => {
           ref={register({ required: true })}
         />
       </div>
-      <Autocomplete
-        style={{ width: 300 }}
-        options={airports} //{top100Films}
-        getOptionLabel={(option) => option.code}
-        renderInput={(params) => (
-          <TextField
-            ref={register({ required: true })}
-            name="departureAirportId"
-            {...params}
-            label="From"
-            variant="outlined"
-            margin="normal"
-          />
-        )}
-        renderOption={(option, { inputValue }) => {
-          const matches = match(option.id, inputValue);
-          const parts = parse(option.id, matches);
-
-          return (
-            <div>
-              {parts.map((part, index) => (
-                <span
-                  key={index}
-                  style={{ fontWeight: part.highlight ? 700 : 400 }}
-                >
-                  {part.text}
-                </span>
-              ))}
-            </div>
-          );
-        }}
-      />
+      <div className="form-group">
+        <label className="form-label">Departure Airport</label>
+        <select ref={register} name="departureAirportId">
+          {airportz}
+        </select>
+      </div>
+      <div className="form-group">
+        <label className="form-label">Arrival Airport</label>
+        <select ref={register} name="arrivalAirportId">
+          {airportz}
+        </select>
+      </div>
 
       <button type="submit" className="btn btn-primary">
-        Add Flight
+        {flight ? "Add Flight" : "Update Flight"}
       </button>
     </form>
   );

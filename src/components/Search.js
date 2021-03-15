@@ -63,7 +63,7 @@ const AntSwitch = withStyles((theme) => ({
   checked: {},
 }))(Switch);
 
-const Search = () => {
+const Search = ({ setDepdt, setArrdt }) => {
   const [state, setState] = React.useState({
     checkedA: true,
     checkedB: true,
@@ -153,6 +153,7 @@ const Search = () => {
         }}
       />
       <TextField
+        onChange={(event) => setDepdt(event.target.value)}
         id="date"
         label="Departure Date"
         type="date"
@@ -163,6 +164,7 @@ const Search = () => {
       />{" "}
       {state.checkedC ? (
         <TextField
+          onChange={(event) => setArrdt(event.target.value)}
           className={classes.taree5}
           id="date"
           label="Return Date"

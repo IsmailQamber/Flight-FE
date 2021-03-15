@@ -34,8 +34,7 @@ const AirlineFlightList = () => {
     airlineId = airline.id;
   } else console.log("airline is not found");
 
-  console.log(airlineId);
-  console.log(flights);
+  if (loading) return <Loading />;
   const flightList = flights
     .filter((_flight) => _flight.airlineId === airlineId)
     .map((flight) => (
@@ -48,7 +47,6 @@ const AirlineFlightList = () => {
     ));
 
   if (!user.isAirline) return <Redirect to="/flights" />;
-  if (loading && airline) return <Loading />;
 
   return (
     <>
