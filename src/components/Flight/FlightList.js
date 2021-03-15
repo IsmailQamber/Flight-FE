@@ -28,15 +28,9 @@ const FlightList = () => {
   const user = useSelector((state) => state.authReducer.user);
 
   if (user.isAirline) return <Redirect to="/airlineflights" />;
-  const flightList = flights
-    .filter(
-      (flight) => flight.departureDate.includes(depdt)
-      //  ||
-      // flight.arrivalDate.includes(arrdt)
-    )
-    .map((flight) => (
-      <FlightItem flight={flight} key={flight.id} setId={setId} />
-    ));
+  const flightList = flights.map((flight) => (
+    <FlightItem flight={flight} key={flight.id} setId={setId} />
+  ));
   <UserProfile flightId={id} />;
 
   if (loading) return <Loading />;
