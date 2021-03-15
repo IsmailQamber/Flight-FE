@@ -30,9 +30,9 @@ const FlightList = () => {
   if (user.isAirline) return <Redirect to="/airlineflights" />;
   const flightList = flights
     .filter(
-      (flight) =>
-        flight.departureDate.includes(depdt) &&
-        flight.arrivalDate.includes(arrdt)
+      (flight) => flight.departureDate.includes(depdt)
+      //  ||
+      // flight.arrivalDate.includes(arrdt)
     )
     .map((flight) => (
       <FlightItem flight={flight} key={flight.id} setId={setId} />

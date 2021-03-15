@@ -18,7 +18,7 @@ const AirlineFlightItem = ({ flight, setId, airline }) => {
   const airports = useSelector((state) => state.airportReducer.airports);
 
   const arrivalAirportId = flight.arrivalAirportId;
-  const departureAirporId = flight.departureAirportId;
+  const departureAirportId = flight.departureAirportId;
 
   //finding the arrivalAirport for this flight
   const arrivalAirport = airports.find(
@@ -27,7 +27,7 @@ const AirlineFlightItem = ({ flight, setId, airline }) => {
 
   //finding the departureAirport for this flight
   const departureAirport = airports.find(
-    (airport) => airport.id === departureAirporId
+    (airport) => airport.id === departureAirportId
   );
 
   const flightId = flight.id;
@@ -61,22 +61,22 @@ const AirlineFlightItem = ({ flight, setId, airline }) => {
 
       <TableCell>
         <ListItemText
-          primary={flight.departureTime}
-          secondary={flight.arrivalTime}
+          primary={` Departure Time:  ${flight.departureTime}`}
+          secondary={` Arrival Time:  ${flight.arrivalTime}`}
         />
       </TableCell>
 
       <TableCell>
         <ListItemText
-          primary={flight.departureDate}
-          secondary={flight.arrivalDate}
+          primary={` Departure Date:  ${flight.departureDate}`}
+          secondary={` Arrival Date:  ${flight.arrivalDate}`}
         />
       </TableCell>
 
       <TableCell>
         <ListItemText
-          primary={flight.economySeats}
-          secondary={flight.businessSeats}
+          primary={` Economy Seats:  ${flight.economySeats}`}
+          secondary={` Business Seats:  ${flight.businessSeats}`}
         />
       </TableCell>
 
