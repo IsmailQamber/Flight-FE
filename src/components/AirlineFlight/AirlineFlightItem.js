@@ -43,7 +43,7 @@ const AirlineFlightItem = ({ flight, setId, airline }) => {
       </TableCell>
 
       <TableCell>
-        <ListItemText primary={airline.name} />
+        {airline && <ListItemText primary={airline.name} />}
       </TableCell>
 
       <TableCell>

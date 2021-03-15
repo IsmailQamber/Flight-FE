@@ -46,7 +46,7 @@ const FlightItem = ({ flight, setId }) => {
       </TableCell>
 
       <TableCell>
-        <ListItemText primary={airline.name} />
+        {airline && <ListItemText primary={airline.name} />}
       </TableCell>
 
       <TableCell>
@@ -54,10 +54,12 @@ const FlightItem = ({ flight, setId }) => {
       </TableCell>
 
       <TableCell>
-        <ListItemText
-          primary={` Arrival Airport:  ${arrivalAirport.name}`}
-          secondary={` Departure Airport:  ${departureAirport.name}`}
-        />
+        {airports && (
+          <ListItemText
+            primary={` Arrival Airport:  ${arrivalAirport.name}`}
+            secondary={` Departure Airport:  ${departureAirport.name}`}
+          />
+        )}
       </TableCell>
 
       <TableCell>
