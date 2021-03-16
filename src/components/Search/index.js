@@ -2,69 +2,12 @@
 import React from "react";
 import { useState } from "react";
 import TextField from "@material-ui/core/TextField";
-import Autocomplete from "@material-ui/lab/Autocomplete";
-import parse from "autosuggest-highlight/parse";
-import match from "autosuggest-highlight/match";
 import { SearchRounded } from "@material-ui/icons";
-import {
-  Grid,
-  IconButton,
-  Input,
-  InputAdornment,
-  InputBase,
-  InputLabel,
-  makeStyles,
-  Switch,
-  Typography,
-  withStyles,
-} from "@material-ui/core";
-import { KeyboardDatePicker } from "@material-ui/pickers";
+import { Grid, IconButton, Input, Typography } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
-import { searchFlight } from "../store/actions/flightActions";
-
-const useStyles = makeStyles({
-  root: {
-    marginLeft: 10,
-  },
-  taree5: {
-    marginLeft: 200,
-  },
-});
-
-const AntSwitch = withStyles((theme) => ({
-  root: {
-    width: 28,
-    height: 16,
-    padding: 0,
-    display: "flex",
-  },
-  switchBase: {
-    padding: 2,
-    color: theme.palette.grey[500],
-    "&$checked": {
-      transform: "translateX(12px)",
-      color: theme.palette.common.white,
-      "& + $track": {
-        opacity: 1,
-        backgroundColor: theme.palette.primary.main,
-        borderColor: theme.palette.primary.main,
-      },
-    },
-  },
-  thumb: {
-    width: 12,
-    height: 12,
-    boxShadow: "none",
-  },
-  track: {
-    border: `1px solid ${theme.palette.grey[500]}`,
-    borderRadius: 16 / 2,
-    opacity: 1,
-    backgroundColor: theme.palette.common.white,
-  },
-  checked: {},
-}))(Switch);
+import { searchFlight } from "../../store/actions/flightActions";
+import { AntSwitch, useStyles } from "./Styles";
 
 const Search = () => {
   const [state, setState] = useState({
