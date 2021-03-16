@@ -37,7 +37,7 @@ const flightReducer = (state = initialState, action) => {
     case types.SEARCH_FLIGHT:
       return {
         ...state,
-        flight: action.payload,
+        flights: action.payload,
         loading: false,
       };
 
