@@ -3,11 +3,19 @@ import React from "react";
 import { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import { SearchRounded } from "@material-ui/icons";
-import { Grid, IconButton, Input, Typography } from "@material-ui/core";
+import {
+  Grid,
+  IconButton,
+  Input,
+  InputLabel,
+  Select,
+  Typography,
+} from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { searchFlight } from "../../store/actions/flightActions";
 import { AntSwitch, useStyles } from "./Styles";
+import { Link, Redirect } from "react-router-dom";
 
 const Search = () => {
   const [state, setState] = useState({
@@ -65,98 +73,108 @@ const Search = () => {
   ));
   const classes = useStyles();
   return (
-    <div className={classes.root}>
-      <Typography component="div">
-        <Grid component="label" container alignItems="center" spacing={1}>
-          <Grid item>One Way</Grid>
-          <Grid item>
-            <AntSwitch
-              checked={state.checkedC}
-              onChange={handleChange}
-              name="checkedC"
-            />
+    <Grid container>
+      <div className={classes.root}>
+        <Typography component="div">
+          <Grid component="label" container alignItems="center" spacing={1}>
+            <Grid item>One Way</Grid>
+            <Grid item>
+              <AntSwitch
+                checked={state.checkedC}
+                onChange={handleChange}
+                name="checkedC"
+              />
+            </Grid>
+            <Grid item>Round Trip</Grid>
           </Grid>
-          <Grid item>Round Trip</Grid>
-        </Grid>
-      </Typography>
-      <div className="form-group">
-        <label className="form-label">Departure Airport</label>
-        <select
-          name="departureAirportId"
-          onChange={(event) =>
-            arrport !== event.target.value
-              ? setDeptport(event.target.value)
-              : alert("Departure airport and Arrival airport can't be the same")
-          }
-        >
-          {airportz}
-        </select>
-      </div>
-      <div className="form-group">
-        <label className="form-label">Arrival Airport</label>
-        <select
-          name="arrivalAirportId"
-          onChange={(event) =>
-            deptport !== event.target.value
-              ? setArrport(event.target.value)
-              : alert("Departure airport and Arrival airport can't be the same")
-          }
-        >
-          {airportz}
-        </select>
-      </div>
-      <Typography component="div">
-        <Grid component="label" container alignItems="center" spacing={1}>
-          <Grid item>Economy</Grid>
-          <Grid item>
-            <AntSwitch
-              checked={_switch.checked}
-              onChange={handleSwitch}
-              name="checked"
-            />
+        </Typography>
+        <div className="form-group">
+          <InputLabel className="form-label">Departure Airport</InputLabel>
+          <Select
+            displayEmpty
+            name="departureAirportId"
+            onChange={(event) =>
+              arrport !== event.target.value
+                ? setDeptport(event.target.value)
+                : alert(
+                    "Departure airport and Arrival airport can't be the same"
+                  )
+            }
+          >
+            {airportz}
+          </Select>
+        </div>
+        <div className="form-group">
+          <InputLabel className="form-label">Arrival Airport</InputLabel>
+          <Select
+            displayEmpty
+            name="arrivalAirportId"
+            onChange={(event) =>
+              deptport !== event.target.value
+                ? setArrport(event.target.value)
+                : alert(
+                    "Departure airport and Arrival airport can't be the same"
+                  )
+            }
+          >
+            {airportz}
+          </Select>
+        </div>
+        <Typography component="div">
+          <Grid component="label" container alignItems="center" spacing={1}>
+            <Grid item>Economy</Grid>
+            <Grid item>
+              <AntSwitch
+                checked={_switch.checked}
+                onChange={handleSwitch}
+                name="checked"
+              />
+            </Grid>
+            <Grid item>Business</Grid>
           </Grid>
-          <Grid item>Business</Grid>
-        </Grid>
-      </Typography>
-      <Input
-        type="number"
-        onChange={(event) => Setpssnumber(event.target.value)}
-      ></Input>
-      <TextField
-        onChange={(event) => setDepdt(moment(event.target.value))}
-        id="date"
-        label="Departure Date"
-        type="date"
-        defaultValue={depdt}
-        className={classes.textField}
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />{" "}
-      {state.checkedC ? (
+        </Typography>
+        <Input
+          type="number"
+          onChange={(event) => Setpssnumber(event.target.value)}
+        ></Input>
         <TextField
-          onChange={(event) =>
-            depdt < moment(event.target.value)
-              ? setArrdt(moment(event.target.value))
-              : alert("Return Date can't be before the Departure Date")
-          }
-          className={classes.taree5}
+          onChange={(event) => setDepdt(moment(event.target.value))}
           id="date"
-          label="Return Date"
+          label="Departure Date"
           type="date"
-          defaultValue={arrdt}
+          defaultValue={depdt}
           className={classes.textField}
           InputLabelProps={{
             shrink: true,
           }}
-        />
-      ) : (
-        ""
-      )}
-      <IconButton onClick={handleSubmit}>
-        <SearchRounded />
-      </IconButton>
-    </div>
+        />{" "}
+        {state.checkedC ? (
+          <TextField
+            onChange={(event) =>
+              depdt < moment(event.target.value)
+                ? setArrdt(moment(event.target.value))
+                : alert("Return Date can't be before the Departure Date")
+            }
+            className={classes.taree5}
+            id="date"
+            label="Return Date"
+            type="date"
+            defaultValue={arrdt}
+            className={classes.textField}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+        ) : (
+          ""
+        )}
+        <Link to="/flights">
+          <IconButton onClick={handleSubmit}>
+            <SearchRounded />
+          </IconButton>
+        </Link>
+      </div>
+    </Grid>
   );
 };
 export default Search;

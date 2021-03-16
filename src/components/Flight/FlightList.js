@@ -20,10 +20,10 @@ import { fetchFlights } from "../../store/actions/flightActions";
 import Search from "../Search";
 import Filter from "../Filter";
 
-const FlightList = () => {
-  let [price, setPrice] = useState("");
-  let [airline, setAirline] = useState();
-  let [deptm, setDeptm] = useState();
+const FlightList = ({ filteredList, state }) => {
+  let [price, setPrice] = useState(200000000000000000);
+  let [airline, setAirline] = useState("");
+  let [deptm, setDeptm] = useState("00:00");
   console.log(airline);
   let [depdt, setDepdt] = useState();
   let [arrdt, setArrdt] = useState();
@@ -33,12 +33,12 @@ const FlightList = () => {
   const user = useSelector((state) => state.authReducer.user);
 
   if (user.isAirline) return <Redirect to="/airlineflights" />;
+
   const flightList = flights
+    // .filter((flight) => flight)
     .filter(
-      (flight) =>
-        flight.price <= price &&
-        flight.departureTime >= deptm &&
-        flight.airlineId === +airline
+      (flight) => flight.price <= price && flight.departureTime >= deptm
+      // flight.airlineId === +state
     )
     .map((flight) => (
       <FlightItem flight={flight} key={flight.id} setId={setId} />
@@ -50,7 +50,15 @@ const FlightList = () => {
   return (
     <>
       {/* <Search setDepdt={setDepdt} setArrdt={setArrdt} /> */}
-      <Filter setPrice={setPrice} setAirline={setAirline} setDeptm={setDeptm} />
+      <Filter
+        setPrice={setPrice}
+        setAirline={setAirline}
+        setDeptm={setDeptm}
+        flightList={flightList}
+        airline={airline}
+        deptm={deptm}
+        price={price}
+      />
       <Table size="small">
         <TableHead>
           <TableRow>
@@ -65,6 +73,7 @@ const FlightList = () => {
           </TableRow>
         </TableHead>
         <TableBody>{flightList}</TableBody>
+        {/* <TableBody>{filteredList}</TableBody> */}
       </Table>
 
       {user && user.isAirline === true && (
