@@ -65,22 +65,22 @@ const FlightItem = ({ flight, setId }) => {
 
       <TableCell>
         <ListItemText
-          primary={flight.departureTime}
-          secondary={flight.arrivalTime}
+          primary={` Departure Time:  ${flight.departureTime}`}
+          secondary={` Arrival Time:  ${flight.arrivalTime}`}
         />
       </TableCell>
 
       <TableCell>
         <ListItemText
-          primary={flight.departureDate}
-          secondary={flight.arrivalDate}
+          primary={` Departure Date:  ${flight.departureDate}`}
+          secondary={` Arrival Date:  ${flight.arrivalDate}`}
         />
       </TableCell>
 
       <TableCell>
         <ListItemText
-          primary={flight.economySeats}
-          secondary={flight.businessSeats}
+          primary={` Economy Seats:  ${flight.economySeats}`}
+          secondary={` Business Seats:  ${flight.businessSeats}`}
         />
       </TableCell>
 
