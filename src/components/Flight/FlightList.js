@@ -38,7 +38,7 @@ const FlightList = ({ filteredList, state }) => {
     // .filter((flight) => flight)
     .filter(
       (flight) => flight.price <= price && flight.departureTime >= deptm
-      // flight.airlineId === +airline
+      // flight.airlineId === +state
     )
     .map((flight) => (
       <FlightItem flight={flight} key={flight.id} setId={setId} />
