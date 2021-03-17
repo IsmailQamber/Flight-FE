@@ -161,6 +161,8 @@ const Search = () => {
 };
 export default Search;
 
+//Review: remove dummy data
+
 // Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
 const top100Films = [
   { title: "BHR", year: 1994 },
