@@ -28,6 +28,7 @@ const Routes = () => {
       <Route path="/signin">
         <Signin />
       </Route>
+      {/* Review: move outside switch if no route */}
       <Route>
         <Search />
       </Route>

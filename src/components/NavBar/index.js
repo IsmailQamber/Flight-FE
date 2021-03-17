@@ -32,6 +32,7 @@ export default function MenuAppBar() {
 
   // are we using this ??
   // I dont think so!!
+  //Review: remove!!
   const handleChange = (event) => {
     setAuth(event.target.checked);
   };
