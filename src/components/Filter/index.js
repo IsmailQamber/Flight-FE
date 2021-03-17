@@ -28,16 +28,49 @@ const Filter = ({
   const airlines = useSelector((state) => state.airlineReducer.airlines);
   const flights = useSelector((state) => state.flightReducer.flights);
 
-  const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
-  };
-  let airlinenames = airlines.map((airline) => airline.name);
+  const airlinesArray = [];
+  airlines.map((airline) => {
+    airlinesArray.push(airline.name);
+  });
+  console.log(
+    "🚀 ~ file: index.js ~ line 34 ~ airlinesArray ~ airlinesArray",
+    airlinesArray
+  );
 
-  const airlinelist = airlines.map((airline) => (
+  let airlinesNames = {};
+  airlinesArray.forEach((airline) => {
+    console.log(
+      "🚀 ~ file: index.js ~ line 42 ~ airlinesArray.forEach ~ airline",
+      airline
+    );
+    airlinesNames[airline.name] = true;
+  });
+
+  console.log("🚀 ~ file: index.js ~ line 37 ~ airlinesNames", airlinesNames);
+
+  let airlinesNamesOnly = {};
+  airlinesArray.forEach((airline) => {
+    airlinesNamesOnly[airline.name] = null;
+  });
+  console.log(
+    "🚀 ~ file: index.js ~ line 48 ~ airlinesArray.forEach ~ airlinesNamesOnly",
+    airlinesNamesOnly
+  );
+
+  const [checkbox, setCheckbox] = useState(airlinesNames);
+  console.log("🚀 ~ file: index.js ~ line 52 ~ checkbox", checkbox);
+
+  const handleChange = (event) => {
+    setCheckbox({ ...checkbox, [event.target.name]: event.target.checked });
+  };
+
+  airlinesNamesOnly = checkbox;
+
+  const airlinesCheckboxes = airlines.map((airline) => (
     <FormControlLabel
       control={
         <Checkbox
-          checked={airline.name}
+          checked={airlinesNamesOnly}
           onChange={handleChange}
           name={airline.name}
         />
@@ -45,22 +78,17 @@ const Filter = ({
       label={airline.name}
     />
   ));
+  // <FlightList state={state} />;
 
-  const airlineIDS = airlines.map((airline) => airline.id);
-  const [state, setState] = useState({ airlinenames: true });
-  console.log(state);
-  <FlightList state={state} />;
-  airlinenames = state;
-  // const filteredList = flights
-  //   .filter(
-  //     (flight) =>
-  //       flight.price <= price &&
-  //       flight.departureTime >= deptm &&
-  //       flight.airlineId === +airline
-  //   )
-  //   .map((flight) => <FlightItem key={flight.id} flight={flight} />);
-  // console.log(filteredList);
-  // <FlightList filteredList={filteredList} />;
+  const filteredList = flights
+    .filter(
+      (flight) => flight.price <= price && flight.departureTime >= deptm
+      // && flight.airlineId === +airline
+    )
+    .map((flight) => <FlightItem key={flight.id} flight={flight} />);
+  console.log(filteredList);
+  <FlightList filteredList={filteredList} />;
+
   return (
     <Grid container className={classes.content}>
       <Grid className={classes.root}>
@@ -75,21 +103,9 @@ const Filter = ({
           defaultValue={200}
         />
       </Grid>
-      {/* <Grid className={classes.root}>
-        <InputLabel>Select Airline: </InputLabel>
-        <Select
-          defaultValue=""
-          displayEmpty
-          onChange={(event) => setAirline(event.target.value)}
-        >
-          {airlinelist}
-        </Select>
-      </Grid> */}
-      <Grid>
-        <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">Assign responsibility</FormLabel>
-          <FormGroup>{airlinelist}</FormGroup>
-        </FormControl>
+
+      <Grid className={classes.root}>
+        <FormGroup>{airlinesCheckboxes}</FormGroup>
       </Grid>
 
       <Grid className={classes.root}>

@@ -13,6 +13,7 @@ export const fetchFlights = () => {
 };
 
 export const searchFlight = (searchedFlight) => async (dispatch) => {
+  // Review: remove commented code and console.logs
   // {return
   try {
     console.log("coming from the actions: ", searchedFlight);
