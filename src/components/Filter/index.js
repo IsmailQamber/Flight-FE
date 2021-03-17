@@ -28,34 +28,10 @@ const Filter = ({
   const airlines = useSelector((state) => state.airlineReducer.airlines);
   const flights = useSelector((state) => state.flightReducer.flights);
 
-  const airlinesArray = [];
-  airlines.map((airline) => {
-    airlinesArray.push(airline.name);
-  });
-  console.log(
-    "🚀 ~ file: index.js ~ line 34 ~ airlinesArray ~ airlinesArray",
-    airlinesArray
-  );
-
   let airlinesNames = {};
-  airlinesArray.forEach((airline) => {
-    console.log(
-      "🚀 ~ file: index.js ~ line 42 ~ airlinesArray.forEach ~ airline",
-      airline
-    );
-    airlinesNames[airline.name] = true;
+  airlines.forEach((airline) => {
+    airlinesNames[airline.id] = true;
   });
-
-  console.log("🚀 ~ file: index.js ~ line 37 ~ airlinesNames", airlinesNames);
-
-  let airlinesNamesOnly = {};
-  airlinesArray.forEach((airline) => {
-    airlinesNamesOnly[airline.name] = null;
-  });
-  console.log(
-    "🚀 ~ file: index.js ~ line 48 ~ airlinesArray.forEach ~ airlinesNamesOnly",
-    airlinesNamesOnly
-  );
 
   const [checkbox, setCheckbox] = useState(airlinesNames);
   console.log("🚀 ~ file: index.js ~ line 52 ~ checkbox", checkbox);
@@ -64,15 +40,13 @@ const Filter = ({
     setCheckbox({ ...checkbox, [event.target.name]: event.target.checked });
   };
 
-  airlinesNamesOnly = checkbox;
-
   const airlinesCheckboxes = airlines.map((airline) => (
     <FormControlLabel
       control={
         <Checkbox
-          checked={airlinesNamesOnly}
+          checked={checkbox[airline.id]}
           onChange={handleChange}
-          name={airline.name}
+          name={airline.id}
         />
       }
       label={airline.name}
@@ -82,8 +56,10 @@ const Filter = ({
 
   const filteredList = flights
     .filter(
-      (flight) => flight.price <= price && flight.departureTime >= deptm
-      // && flight.airlineId === +airline
+      (flight) =>
+        flight.price <= price &&
+        flight.departureTime >= deptm &&
+        checkbox[flight.airlineId]
     )
     .map((flight) => <FlightItem key={flight.id} flight={flight} />);
   console.log(filteredList);
