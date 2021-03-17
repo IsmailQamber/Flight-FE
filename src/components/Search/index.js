@@ -8,8 +8,11 @@ import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { searchFlight } from "../../store/actions/flightActions";
 import { AntSwitch, useStyles } from "./Styles";
+import Passengers from "../Passengers";
+import { useHistory } from "react-router";
 
 const Search = () => {
+  const history = useHistory();
   const [state, setState] = useState({
     checkedA: true,
     checkedB: true,
@@ -26,6 +29,8 @@ const Search = () => {
   });
   const [seatType, setSeatType] = useState("Economy");
   const [pssnumber, Setpssnumber] = useState(5);
+
+  <Passengers pssnumber={pssnumber} />;
 
   let data = {
     departureDate: moment(depdt).format("YYYY-MM-DD"),
@@ -47,6 +52,7 @@ const Search = () => {
     }
     console.log("search component: ", data);
     dispatch(searchFlight(data));
+    history.push("/flights");
   };
 
   const handleSwitch = (event) => {

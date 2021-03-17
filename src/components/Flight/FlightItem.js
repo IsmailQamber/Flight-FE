@@ -15,9 +15,11 @@ import {
   Book,
   FlightSharp,
 } from "@material-ui/icons";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { booking } from "../../store/actions/bookingActions";
 
 const FlightItem = ({ flight, setId }) => {
+  const dispatch = useDispatch();
   const airlines = useSelector((state) => state.airlineReducer.airlines);
   const airports = useSelector((state) => state.airportReducer.airports);
 
@@ -35,6 +37,12 @@ const FlightItem = ({ flight, setId }) => {
   const departureAirport = airports.find(
     (airport) => airport.id === departureAirporId
   );
+
+  const handleBook = () => {
+    const bookFlight = { flightId: flight.id };
+    console.log("handlebook", bookFlight);
+    dispatch(booking(bookFlight));
+  };
 
   return (
     <TableRow>
@@ -85,7 +93,8 @@ const FlightItem = ({ flight, setId }) => {
       </TableCell>
 
       <TableCell>
-        <IconButton onClick={() => setId((array) => [...array, flight.id])}>
+        <IconButton onClick={handleBook}>
+          {/* onClick={() => setId((array) => [...array, flight.id])}> */}
           <Book />
         </IconButton>
       </TableCell>

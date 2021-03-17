@@ -6,6 +6,7 @@ import UserProfile from "./UserProfile";
 import AirlineFlightList from "./AirlineFlight/AirlineFlightList";
 import FlightForm from "./AirlineFlight/FlightForm";
 import Search from "./Search";
+import Passengers from "./Passengers";
 
 const Routes = () => {
   return (
@@ -28,8 +29,10 @@ const Routes = () => {
       <Route path="/signin">
         <Signin />
       </Route>
-      {/* Review: move outside switch if no route */}
-      <Route>
+      <Route path="/passengers">
+        <Passengers />
+      </Route>
+      <Route path="/">
         <Search />
       </Route>
     </Switch>
