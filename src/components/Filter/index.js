@@ -6,6 +6,7 @@ import {
   FormHelperText,
   FormLabel,
   Grid,
+  Input,
   InputLabel,
   Select,
 } from "@material-ui/core";
@@ -75,22 +76,16 @@ const Filter = ({
           defaultValue={200}
         />
       </Grid>
-      {/* <Grid className={classes.root}>
-        <InputLabel>Select Airline: </InputLabel>
-        <Select
-          defaultValue=""
-          displayEmpty
-          onChange={(event) => setAirline(event.target.value)}
-        >
-          {airlinelist}
-        </Select>
-      </Grid> */}
       <Grid>
+        <InputLabel>Search Airline</InputLabel>
+        <Input onChange={(event) => setAirline(event.target.value)} />
+      </Grid>
+      {/* <Grid>
         <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">Assign responsibility</FormLabel>
           <FormGroup>{airlinelist}</FormGroup>
         </FormControl>
-      </Grid>
+      </Grid> */}
 
       <Grid className={classes.root}>
         <InputLabel>Departure Time (after):</InputLabel>
