@@ -14,10 +14,13 @@ const Routes = () => {
       <Route path={["/airlineflights/new", "/airlineflights/:flightId/edit"]}>
         <FlightForm />
       </Route>
+      <Route path="/passengers/:pssnumber/:flightId">
+        <Passengers />
+      </Route>
       <Route path="/airlineflights">
         <AirlineFlightList />
       </Route>
-      <Route path="/flights">
+      <Route path="/flights/:pssnumber">
         <FlightList />
       </Route>
       <Route path="/user">
@@ -28,9 +31,6 @@ const Routes = () => {
       </Route>
       <Route path="/signin">
         <Signin />
-      </Route>
-      <Route path="/passengers">
-        <Passengers />
       </Route>
       <Route path="/">
         <Search />

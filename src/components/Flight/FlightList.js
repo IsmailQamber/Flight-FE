@@ -34,12 +34,12 @@ const FlightList = () => {
 
   if (user.isAirline) return <Redirect to="/airlineflights" />;
   const flightList = flights
-    .filter(
-      (flight) =>
-        flight.price <= price &&
-        flight.departureTime >= deptm &&
-        flight.airlineId === +airline
-    )
+    // .filter(
+    //   (flight) =>
+    //     flight.price <= price &&
+    //     flight.departureTime >= deptm &&
+    //     flight.airlineId === +airline
+    // )
     .map((flight) => (
       <FlightItem flight={flight} key={flight.id} setId={setId} />
     ));

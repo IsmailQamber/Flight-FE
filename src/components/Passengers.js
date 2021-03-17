@@ -24,8 +24,8 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
   },
 }));
-const Passengers = ({ pssnumber }) => {
-  const { flightId } = useParams();
+const Passengers = () => {
+  const { flightId, pssnumber } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -36,20 +36,28 @@ const Passengers = ({ pssnumber }) => {
   const airports = useSelector((state) => state.airportReducer.airports);
 
   const currentAirline = airlines.find((airline) => airline.userId === user.id);
-  console.log(currentAirline);
+
   let airlineId;
   if (currentAirline) {
     airlineId = currentAirline.id;
   }
+
+  // let i = 0;
 
   const classes = useStyles();
   const [inputFields, setInputFields] = useState([
     { id: uuidv4(), firstName: "", lastName: "", passportNumber: "" },
   ]);
 
-  for (let i = 0; i < pssnumber; i++) {
-    return setInputFields;
-  }
+  // console.log("pssnumber", +pssnumber);
+
+  // for (let i = 0; i === 2; i++) {
+  //   console.log("i", i);
+  //   // setInputFields([
+  //   //   ...inputFields,
+  //   //   { id: uuidv4(), firstName: "", lastName: "", passportNumber: "" },
+  //   // ]);
+  // }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -77,11 +85,14 @@ const Passengers = ({ pssnumber }) => {
     setInputFields(newInputFields);
   };
 
-  const handleAddFields = () => {
-    setInputFields([
-      ...inputFields,
-      { id: uuidv4(), firstName: "", lastName: "", passportNumber: "" },
-    ]);
+  let i = 0;
+  const handleAddFields = (i) => {
+    if (i < pssnumber)
+      setInputFields([
+        ...inputFields,
+        { id: uuidv4(), firstName: "", lastName: "", passportNumber: "" },
+      ]);
+    return i++;
   };
 
   const handleRemoveFields = (id) => {
@@ -141,7 +152,7 @@ const Passengers = ({ pssnumber }) => {
             >
               <RemoveIcon />
             </IconButton>
-            <IconButton onClick={handleAddFields}>
+            <IconButton onClick={() => handleAddFields(i)}>
               <AddIcon />
             </IconButton>
           </div>
