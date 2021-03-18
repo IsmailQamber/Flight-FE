@@ -80,11 +80,11 @@ const AirlineFlightItem = ({ flight, setId, airline }) => {
         />
       </TableCell>
 
-      <TableCell>
+      {/* <TableCell>
         <IconButton onClick={() => setId((array) => [...array, flight.id])}>
           <Book />
         </IconButton>
-      </TableCell>
+      </TableCell> */}
       <TableCell>
         <Link to={`/airlineflights/${flightId}/edit`}>
           <IconButton>

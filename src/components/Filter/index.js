@@ -81,9 +81,9 @@ const Filter = ({
         />
       </Grid>
 
-      <Grid className={classes.root}>
+      {/* <Grid className={classes.root}>
         <FormGroup>{airlinesCheckboxes}</FormGroup>
-      </Grid>
+      </Grid> */}
 
       <Grid className={classes.root}>
         <InputLabel>Departure Time (after):</InputLabel>

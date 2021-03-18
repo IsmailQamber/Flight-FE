@@ -12,6 +12,7 @@ import Orders from "./Orders";
 import Profile from "../Profile";
 import Copyright from "./Copyright";
 import { useStyles } from "./Styles";
+import Title from "./Title";
 
 // Review: make it arrow function
 export default function UserProfile({ flightId }) {
@@ -27,20 +28,22 @@ export default function UserProfile({ flightId }) {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
+          <Title>User Profile</Title>
+
           <Grid container spacing={3}>
             {/* Chart */}
-            <Grid item xs={12} md={8} lg={9}>
+            <Grid item xs={12}>
               <Paper className={fixedHeightPaper}>
                 Edit User Data
                 <Profile />
               </Paper>
             </Grid>
             {/* Recent Deposits */}
-            <Grid item xs={12} md={4} lg={3}>
+            {/* <Grid item xs={12} md={4} lg={3}>
               <Paper className={fixedHeightPaper}>
                 <Deposits />
               </Paper>
-            </Grid>
+            </Grid> */}
             {/* Recent Orders */}
             <Grid item xs={12}>
               <Paper className={classes.paper}>

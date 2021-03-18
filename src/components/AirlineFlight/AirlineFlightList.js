@@ -63,7 +63,7 @@ const AirlineFlightList = () => {
             <TableCell>Time</TableCell>
             <TableCell>Date</TableCell>
             <TableCell>Seats</TableCell>
-            <TableCell>Book</TableCell>
+            {/* <TableCell>Book</TableCell> */}
             <TableCell>Edit</TableCell>
           </TableRow>
         </TableHead>

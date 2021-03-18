@@ -1,13 +1,28 @@
 import { makeStyles, Switch, withStyles } from "@material-ui/core";
 
-export const useStyles = makeStyles({
+export const useStyles = makeStyles((theme) => ({
   root: {
-    marginLeft: 10,
+    flexGrow: 1,
   },
-  taree5: {
-    marginLeft: 200,
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: "center",
+    color: theme.palette.text.secondary,
   },
-});
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 150,
+  },
+}));
+
+// export const useStyles = makeStyles({
+//   root: {
+//     marginLeft: 10,
+//   },
+//   taree5: {
+//     marginLeft: 200,
+//   },
+// });
 
 export const AntSwitch = withStyles((theme) => ({
   space: { marginLeft: 500 },

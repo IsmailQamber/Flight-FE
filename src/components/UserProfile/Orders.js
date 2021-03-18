@@ -15,15 +15,15 @@ function createData(id, date, name, shipTo, paymentMethod, amount, Airline) {
 
 //Dummy data
 const rows = [
-  createData(0, "16 Mar, 2019", "BHR", "Elvis Presley", "1", 300.44),
-  createData(1, "16 Mar, 2019", "London, UK", "Paul McCartney", "7", 866.99),
-  createData(2, "16 Mar, 2019", "Boston, MA", "Tom Scholz", "3", 100.81),
-  createData(3, "16 Mar, 2019", "DXB", "Michael Jackson", "2", 654.39),
+  createData(0, "18 Mar, 2021", "BHR", "Gulf Air", "1", 300.44),
+  createData(1, "01 Mar, 2021", "London, UK", "British Airways", "7", 866.99),
+  createData(2, "14 Feb, 2021", "Boston, MA", "Qatar Airways", "3", 100.81),
+  createData(3, "22 Jan, 2021", "DXB", "Fly Dubai", "2", 654.39),
   createData(
     4,
-    "15 Mar, 2019",
+    "30 Dec, 2020",
     "Long Branch, NJ",
-    "Bruce Springsteen",
+    "Etihad Airways",
     "5",
     200.79
   ),

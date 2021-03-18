@@ -130,7 +130,7 @@ const Passengers = () => {
 
   return (
     <Container>
-      <h1>Add New Member</h1>
+      <h1>Add Passengers</h1>
       <form className={classes.root} onSubmit={handleSubmit}>
         {inputFields.map((inputField) => (
           <div key={inputField.id}>
