@@ -10,6 +10,7 @@ export const useStyles = makeStyles({
 });
 
 export const AntSwitch = withStyles((theme) => ({
+  space: { marginLeft: 500 },
   root: {
     width: 28,
     height: 16,
