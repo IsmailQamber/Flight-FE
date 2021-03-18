@@ -5,6 +5,7 @@ const initialState = {
   loading: true,
 };
 
+//Review: remove unused code
 const flightReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.FETCH_FLIGHT:

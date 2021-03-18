@@ -15,3 +15,6 @@ export const ADD_AIRLINE = "ADD_AIRLINE";
 
 //Airport Types
 export const FETCH_AIRPORT = "FETCH_AIRPORT";
+
+//Booking Types
+export const BOOK_FLIGHT = "BOOK_FLIGHT";

@@ -13,6 +13,8 @@ import { Select } from "@material-ui/core";
 
 const FlightForm = () => {
   const { flightId } = useParams();
+
+  //Review: remove this function if not used, remove (console logs) after testing.
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   const validateTime = async (value) => {
     await sleep(1000);

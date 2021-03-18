@@ -17,6 +17,8 @@ import { Add } from "@material-ui/icons";
 // components
 import Loading from "../Loading";
 import AirlineFlightItem from "./AirlineFlightItem";
+
+//Review: remove unused imports
 import UserProfile from "../UserProfile";
 import { fetchFlights } from "../../store/actions/flightActions";
 

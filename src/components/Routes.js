@@ -6,6 +6,7 @@ import UserProfile from "./UserProfile";
 import AirlineFlightList from "./AirlineFlight/AirlineFlightList";
 import FlightForm from "./AirlineFlight/FlightForm";
 import Search from "./Search";
+import Passengers from "./Passengers";
 
 const Routes = () => {
   return (
@@ -13,10 +14,13 @@ const Routes = () => {
       <Route path={["/airlineflights/new", "/airlineflights/:flightId/edit"]}>
         <FlightForm />
       </Route>
+      <Route path="/passengers/:pssnumber/:flightId">
+        <Passengers />
+      </Route>
       <Route path="/airlineflights">
         <AirlineFlightList />
       </Route>
-      <Route path="/flights">
+      <Route path="/flights/:pssnumber">
         <FlightList />
       </Route>
       <Route path="/user">
@@ -28,7 +32,7 @@ const Routes = () => {
       <Route path="/signin">
         <Signin />
       </Route>
-      <Route>
+      <Route path="/">
         <Search />
       </Route>
     </Switch>

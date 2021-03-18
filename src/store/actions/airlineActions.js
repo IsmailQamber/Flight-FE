@@ -12,6 +12,7 @@ export const fetchAirline = () => {
   };
 };
 
+//Review: I dont think we need this, remove after testing
 export const addAirline = (newAirline) => async (dispatch) => {
   try {
     const res = await instance.post("/flight", newAirline);
