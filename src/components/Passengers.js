@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const Passengers = () => {
+  const [count, setCount] = useState(1);
   const { flightId, pssnumber } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -46,7 +47,7 @@ const Passengers = () => {
 
   const classes = useStyles();
   const [inputFields, setInputFields] = useState([
-    { id: uuidv4(), firstName: "", lastName: "", passportNumber: "" },
+    { firstName: "", lastName: "", passportNumber: "" },
   ]);
 
   // console.log("pssnumber", +pssnumber);
@@ -59,19 +60,29 @@ const Passengers = () => {
   //   // ]);
   // }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e, data) => {
     e.preventDefault();
     console.log("InputFields", inputFields);
-    // console.log("before", data);
-    // if (user) {
-    //   data = { ...data, userId: user.id };
-    // } else {
-    //   data = { ...data, userId: null };
-    // }
-    // console.log("after", data);
-    // dispatch(booking(data));
+    console.log("before", data);
+    if (user) {
+      data = {
+        ...data,
+        flightId: flightId,
+        userId: user.id,
+        passengers: inputFields,
+      };
+    } else {
+      data = {
+        ...data,
+        flightId: flightId,
+        userId: null,
+        passengers: inputFields,
+      };
+    }
+    console.log("after", data);
+    dispatch(booking(data));
 
-    // history.push("/");
+    history.push("/");
   };
 
   const handleChangeInput = (id, event) => {
@@ -85,16 +96,14 @@ const Passengers = () => {
     setInputFields(newInputFields);
   };
 
-  let i = 0;
-  const handleAddFields = (i) => {
-    if (i < pssnumber)
-      setInputFields([
-        ...inputFields,
-        { id: uuidv4(), firstName: "", lastName: "", passportNumber: "" },
-      ]);
-    return i++;
+  const handleAddFields = () => {
+    setInputFields([
+      ...inputFields,
+      { firstName: "", lastName: "", passportNumber: "" },
+    ]);
+    setCount(count + 1);
   };
-
+  console.log("count", count);
   const handleRemoveFields = (id) => {
     const values = [...inputFields];
     values.splice(
@@ -152,9 +161,13 @@ const Passengers = () => {
             >
               <RemoveIcon />
             </IconButton>
-            <IconButton onClick={() => handleAddFields(i)}>
-              <AddIcon />
-            </IconButton>
+            {count < pssnumber ? (
+              <IconButton onClick={count < pssnumber ? handleAddFields : ""}>
+                <AddIcon />
+              </IconButton>
+            ) : (
+              ""
+            )}
           </div>
         ))}
         <Button

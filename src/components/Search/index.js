@@ -3,7 +3,15 @@ import React from "react";
 import { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import { SearchRounded } from "@material-ui/icons";
-import { Grid, IconButton, Input, Typography } from "@material-ui/core";
+import {
+  Container,
+  Grid,
+  IconButton,
+  Input,
+  InputLabel,
+  Select,
+  Typography,
+} from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { searchFlight } from "../../store/actions/flightActions";
@@ -70,7 +78,7 @@ const Search = () => {
   ));
   const classes = useStyles();
   return (
-    <div className={classes.root}>
+    <Container className={classes.root} alignItems="center">
       <Typography component="div">
         <Grid component="label" container alignItems="center" spacing={1}>
           <Grid item>One Way</Grid>
@@ -84,32 +92,38 @@ const Search = () => {
           <Grid item>Round Trip</Grid>
         </Grid>
       </Typography>
-      <div className="form-group">
-        <label className="form-label">Departure Airport</label>
-        <select
-          name="departureAirportId"
-          onChange={(event) =>
-            arrport !== event.target.value
-              ? setDeptport(event.target.value)
-              : alert("Departure airport and Arrival airport can't be the same")
-          }
-        >
-          {airportz}
-        </select>
-      </div>
-      <div className="form-group">
-        <label className="form-label">Arrival Airport</label>
-        <select
-          name="arrivalAirportId"
-          onChange={(event) =>
-            deptport !== event.target.value
-              ? setArrport(event.target.value)
-              : alert("Departure airport and Arrival airport can't be the same")
-          }
-        >
-          {airportz}
-        </select>
-      </div>
+      <Grid container>
+        <div className="form-group" className={classes.space}>
+          <InputLabel className="form-label">Departure Airport</InputLabel>
+          <Select
+            name="departureAirportId"
+            onChange={(event) =>
+              arrport !== event.target.value
+                ? setDeptport(event.target.value)
+                : alert(
+                    "Departure airport and Arrival airport can't be the same"
+                  )
+            }
+          >
+            {airportz}
+          </Select>
+        </div>
+        <div className="form-group" className={classes.space}>
+          <InputLabel className="form-label">Arrival Airport</InputLabel>
+          <Select
+            name="arrivalAirportId"
+            onChange={(event) =>
+              deptport !== event.target.value
+                ? setArrport(event.target.value)
+                : alert(
+                    "Departure airport and Arrival airport can't be the same"
+                  )
+            }
+          >
+            {airportz}
+          </Select>
+        </div>
+      </Grid>
       <Typography component="div">
         <Grid component="label" container alignItems="center" spacing={1}>
           <Grid item>Economy</Grid>
@@ -163,7 +177,7 @@ const Search = () => {
           <SearchRounded />
         </IconButton>
       </Link>
-    </div>
+    </Container>
   );
 };
 export default Search;
