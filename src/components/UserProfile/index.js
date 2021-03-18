@@ -13,6 +13,7 @@ import Profile from "../Profile";
 import Copyright from "./Copyright";
 import { useStyles } from "./Styles";
 
+// Review: make it arrow function
 export default function UserProfile({ flightId }) {
   const classes = useStyles();
   console.log(flightId);

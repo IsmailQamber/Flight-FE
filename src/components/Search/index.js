@@ -134,36 +134,17 @@ const Search = () => {
               name="checked"
             />
           </Grid>
-          <Grid item>Business</Grid>
-        </Grid>
-      </Typography>
-      <Input
-        type="number"
-        onChange={(event) => Setpssnumber(event.target.value)}
-      ></Input>
-      <TextField
-        onChange={(event) => setDepdt(moment(event.target.value))}
-        id="date"
-        label="Departure Date"
-        type="date"
-        defaultValue={depdt}
-        className={classes.textField}
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />{" "}
-      {state.checkedC ? (
+        </Typography>
+        <Input
+          type="number"
+          onChange={(event) => Setpssnumber(event.target.value)}
+        ></Input>
         <TextField
-          onChange={(event) =>
-            depdt < moment(event.target.value)
-              ? setArrdt(moment(event.target.value))
-              : alert("Return Date can't be before the Departure Date")
-          }
-          className={classes.taree5}
+          onChange={(event) => setDepdt(moment(event.target.value))}
           id="date"
-          label="Return Date"
+          label="Departure Date"
           type="date"
-          defaultValue={arrdt}
+          defaultValue={depdt}
           className={classes.textField}
           InputLabelProps={{
             shrink: true,

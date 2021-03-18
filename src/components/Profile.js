@@ -5,11 +5,13 @@ import { useForm } from "react-hook-form";
 
 // Actions
 import { userUpdate } from "../store/actions/authActions";
+// Review: remove if not used
 import SelectInput from "@material-ui/core/Select/SelectInput";
 
 // eslint-disable-next-line
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
+// Review: fix the data is not being updated
 const Profile = () => {
   const dispatch = useDispatch();
   const history = useHistory();

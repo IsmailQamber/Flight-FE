@@ -63,7 +63,8 @@ export default function MenuAppBar() {
 
           {user && !user.isAirline ? (
             <Link to="/flights">
-              <IconButton onClick={dispatch(fetchFlights())}>
+              <IconButton>
+                {/* onClick={dispatch(fetchFlights())}> */}
                 <AirplanemodeActive />
               </IconButton>
             </Link>

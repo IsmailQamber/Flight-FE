@@ -9,6 +9,7 @@ import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import parse from "autosuggest-highlight/parse";
 import match from "autosuggest-highlight/match";
+import { Select } from "@material-ui/core";
 
 const FlightForm = () => {
   const { flightId } = useParams();
@@ -155,15 +156,15 @@ const FlightForm = () => {
       </div>
       <div className="form-group">
         <label className="form-label">Departure Airport</label>
-        <select ref={register} name="departureAirportId">
+        <Select displayEmpty ref={register} name="departureAirportId">
           {airportz}
-        </select>
+        </Select>
       </div>
       <div className="form-group">
         <label className="form-label">Arrival Airport</label>
-        <select ref={register} name="arrivalAirportId">
+        <Select displayEmpty ref={register} name="arrivalAirportId">
           {airportz}
-        </select>
+        </Select>
       </div>
 
       <button type="submit" className="btn btn-primary">

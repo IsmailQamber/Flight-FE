@@ -67,8 +67,8 @@ const FlightItem = ({ flight, setId }) => {
       <TableCell>
         {airports && (
           <ListItemText
-            primary={` Arrival Airport:  ${arrivalAirport.name}`}
-            secondary={` Departure Airport:  ${departureAirport.name}`}
+            secondary={` Arrival Airport:  ${arrivalAirport.name}`}
+            primary={` Departure Airport:  ${departureAirport.name}`}
           />
         )}
       </TableCell>

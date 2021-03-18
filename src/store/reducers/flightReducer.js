@@ -12,6 +12,7 @@ const flightReducer = (state = initialState, action) => {
       return { ...state, flights: action.payload, loading: false };
 
     case types.ADD_FLIGHT:
+      // Review: remove if not needed
       // const { newFlight } = action.payload;
       return {
         ...state,
